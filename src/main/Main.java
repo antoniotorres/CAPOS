@@ -21,30 +21,34 @@
 
 package main;
 
+import database.DbCapos;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import properties.PropCapos;
 
 public class Main extends Application {
 
 
     public static String screenMain = "main";
     public static String screenMain_FXML = "ScreenMain.fxml";
-    //public static String screenLogin = "screen2";
-    //public static String screenLogin_FXML = "Screen2.fxml";
+    public static String screenLogin = "login";
+    public static String screenLogin_FXML = "ScreenLogin.fxml";
 
 
 
     @Override
     public void start(Stage primaryStage) throws Exception{
 
+        initApp();
+
         ScreensController mainContainer = new ScreensController();
         mainContainer.loadScreen(Main.screenMain, Main.screenMain_FXML);
-        //mainContainer.loadScreen(Main.screenLogin, Main.screenLogin_FXML);
+        mainContainer.loadScreen(Main.screenLogin, Main.screenLogin_FXML);
 
-        mainContainer.setScreen(Main.screenMain);
+        mainContainer.setScreen(Main.screenLogin);
 
         Group root = new Group();
         root.getChildren().addAll(mainContainer);
@@ -59,5 +63,10 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+    //Esta parte del codigo inicia los archivos que estan fuera del programa.
+    public static void initApp() {
+        PropCapos dprop = new PropCapos();
+        DbCapos database = new DbCapos();
     }
 }
