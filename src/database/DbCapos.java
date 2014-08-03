@@ -11,13 +11,18 @@ public class DbCapos {
         checkDb();
     }
     public void checkDb() {
-        create();
-        insert();
-        select();
+        //create("users", "username           TEXT    NOT NULL, password            TEXT     NOT NULL)");
+        //insert("users", "USERNAME, PASSWORD", "'admin','admin'");
+        //if (selectLogin("admin", "admins")) {
+        //    System.out.println("TRUE");
+        //}else {
+        //   System.out.println("FALSe");
+        //}
 
 
     }
-    public void create() {
+    //Esta funcion crea una tabla dentro de la base de datos pos.db con los argumentos el nobmre de la tabla y los campos que van dentro de la tabla.
+    public void create(String table, String statement) {
         Connection c = null;
         Statement stmt = null;
         try {
@@ -25,16 +30,13 @@ public class DbCapos {
             String propertiesPath=jarPath.getParentFile().getAbsolutePath();
 
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:"+propertiesPath+"/test.db");
+            c = DriverManager.getConnection("jdbc:sqlite:"+propertiesPath+"/pos.db");
             System.out.println("Opened database successfully");
 
             stmt = c.createStatement();
-            String sql = "CREATE TABLE COMPANY " +
+            String sql = "CREATE TABLE " + table + " " +
                     "(ID INTEGER PRIMARY KEY     AUTOINCREMENT," +
-                    " NAME           TEXT    NOT NULL, " +
-                    " AGE            INT     NOT NULL, " +
-                    " ADDRESS        CHAR(50), " +
-                    " SALARY         REAL)";
+                    statement;
             stmt.executeUpdate(sql);
             stmt.close();
             c.close();
@@ -44,30 +46,22 @@ public class DbCapos {
         }
         System.out.println("Table created successfully");
     }
-    public void insert() {
+    public void insert(String table, String column, String statement) {
         Connection c = null;
         Statement stmt = null;
         try {
+            File jarPath=new File(DbCapos.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+            String propertiesPath=jarPath.getParentFile().getAbsolutePath();
+
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:test.db");
+            c = DriverManager.getConnection("jdbc:sqlite:"+propertiesPath+"/pos.db");
             c.setAutoCommit(false);
             System.out.println("Opened database successfully");
 
             stmt = c.createStatement();
-            /*String sql = "INSERT INTO COMPANY (NAME,AGE,ADDRESS,SALARY) " +
-                    "VALUES (1, 'Paul', 32, 'California', 20000.00 );";
-            stmt.executeUpdate(sql);
-
-            sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) " +
-                    "VALUES (2, 'Allen', 25, 'Texas', 15000.00 );";
-            stmt.executeUpdate(sql);
-
-            sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) " +
-                    "VALUES (3, 'Teddy', 23, 'Norway', 20000.00 );";
-            stmt.executeUpdate(sql);*/
-
-            String sql = "INSERT INTO COMPANY (NAME,AGE,ADDRESS,SALARY) " +
-                    "VALUES ('Mark', 25, 'Rich-Mond ', 65000.00 );";
+            String sql = "INSERT INTO " + table + " (" + column + ") VALUES ( " + statement + " );";
+            //String sql = "INSERT INTO " + table + " (NAME,AGE,ADDRESS,SALARY) " +
+            //        "VALUES ('Mark', 25, 'Rich-Mond ', 65000.00 );";
             stmt.executeUpdate(sql);
 
             stmt.close();
@@ -79,29 +73,30 @@ public class DbCapos {
         }
         System.out.println("Records created successfully");
     }
-    public void select() {
+    public static boolean selectLogin(String username, String password) {
         Connection c = null;
         Statement stmt = null;
+        boolean value=false;
         try {
+            File jarPath=new File(DbCapos.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+            String propertiesPath=jarPath.getParentFile().getAbsolutePath();
+
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:test.db");
+            c = DriverManager.getConnection("jdbc:sqlite:"+propertiesPath+"/pos.db");
             c.setAutoCommit(false);
             System.out.println("Opened database successfully");
 
             stmt = c.createStatement();
-            ResultSet rs = stmt.executeQuery( "SELECT * FROM COMPANY;" );
+            ResultSet rs = stmt.executeQuery( "SELECT * FROM USERS WHERE USERNAME='"+username+"' AND PASSWORD='"+password+"';" );
             while ( rs.next() ) {
                 int id = rs.getInt("id");
-                String  name = rs.getString("name");
-                int age  = rs.getInt("age");
-                String  address = rs.getString("address");
-                float salary = rs.getFloat("salary");
+                String  name = rs.getString("username");
+                String  address = rs.getString("password");
                 System.out.println( "ID = " + id );
-                System.out.println( "NAME = " + name );
-                System.out.println( "AGE = " + age );
-                System.out.println( "ADDRESS = " + address );
-                System.out.println( "SALARY = " + salary );
+                System.out.println( "USERNAME = " + name );
+                System.out.println( "PASSWORD = " + address );
                 System.out.println();
+                value=true;
             }
             rs.close();
             stmt.close();
@@ -111,5 +106,6 @@ public class DbCapos {
             System.exit(0);
         }
         System.out.println("Operation done successfully");
+        return value;
     }
 }

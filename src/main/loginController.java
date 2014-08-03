@@ -26,6 +26,8 @@ import javafx.fxml.Initializable;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import database.DbCapos;
+import javafx.scene.control.TextField;
 
 public class loginController extends ControlledScreen implements Initializable {
 
@@ -43,8 +45,19 @@ public class loginController extends ControlledScreen implements Initializable {
     }
 
     @FXML
+    private TextField username;
+    @FXML
+    private TextField password;
+
+    @FXML
     private void loginButton(ActionEvent event){
         //myController.setScreen(Main.screen2ID);
         System.out.println("loginButton");
+        if (DbCapos.selectLogin(username.getText(), password.getText())) {
+            System.out.println("TRUE");
+            myController.setScreen(Main.screenMain);
+        }else {
+            System.out.println("FALSe");
+        }
     }
 }
