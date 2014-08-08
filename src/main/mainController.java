@@ -42,14 +42,24 @@ public class mainController extends ControlledScreen implements Initializable {
     }
 
     @FXML
-    private void goToScreen2(ActionEvent event){
-        //myController.setScreen(Main.screen2ID);
-        System.out.println("Go to 2");
+    private void goToCaja(ActionEvent event){
+        myController.setScreen(Main.screenCaja);
+        System.out.println("Go to Caja Screen");
     }
 
     @FXML
-    private void goToScreen3(ActionEvent event){
+    private void goToReportes(ActionEvent event){
         //myController.setScreen(Main.screen3ID);
-        System.out.println("Go to 3");
+        System.out.println("Go to Reportes Screen");
+    }
+    @FXML
+    private void goToInventario(ActionEvent event){
+        //myController.setScreen(Main.screen3ID);
+        System.out.println("Go to Inv Screen");
+    }
+    @FXML
+    private void goToLogin(ActionEvent event){
+        myController.setScreen(Main.screenLogin);;
+        System.out.println("Go to Login Screen");
     }
 }

@@ -36,6 +36,8 @@ public class Main extends Application {
     public static String screenMain_FXML = "ScreenMain.fxml";
     public static String screenLogin = "login";
     public static String screenLogin_FXML = "ScreenLogin.fxml";
+    public static String screenCaja = "caja";
+    public static String screenCaja_FXML = "ScreenCaja.fxml";
 
 
 
@@ -47,6 +49,7 @@ public class Main extends Application {
         ScreensController mainContainer = new ScreensController();
         mainContainer.loadScreen(Main.screenMain, Main.screenMain_FXML);
         mainContainer.loadScreen(Main.screenLogin, Main.screenLogin_FXML);
+        mainContainer.loadScreen(Main.screenCaja, Main.screenCaja_FXML);
 
         mainContainer.setScreen(Main.screenLogin);
 

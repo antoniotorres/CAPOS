@@ -26,10 +26,8 @@ import javafx.fxml.Initializable;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import database.DbCapos;
-import javafx.scene.control.TextField;
 
-public class loginController extends ControlledScreen implements Initializable {
+public class cajaController extends ControlledScreen implements Initializable {
 
     ScreensController myController;
     /**
@@ -45,20 +43,24 @@ public class loginController extends ControlledScreen implements Initializable {
     }
 
     @FXML
-    private TextField username;
-    @FXML
-    private TextField password;
+    private void goToCaja(ActionEvent event){
+        //myController.setScreen(Main.screen2ID);
+        System.out.println("Go to Caja Screen");
+    }
 
     @FXML
-    private void loginButton(ActionEvent event){
-        //myController.setScreen(Main.screen2ID);
-        System.out.println("loginButton");
-        if (DbCapos.selectLogin(username.getText(), password.getText())) {
-            System.out.println("Username and Password Match");
-            //Este codigo va a cambiar la pantalla a screenMain
-            myController.setScreen(Main.screenMain);
-        }else {
-            System.out.println("Error: Maybe Username or Password wrong");
-        }
+    private void goToReportes(ActionEvent event){
+        //myController.setScreen(Main.screen3ID);
+        System.out.println("Go to Reportes Screen");
+    }
+    @FXML
+    private void goToInventario(ActionEvent event){
+        //myController.setScreen(Main.screen3ID);
+        System.out.println("Go to Inv Screen");
+    }
+    @FXML
+    private void goToLogin(ActionEvent event){
+        myController.setScreen(Main.screenLogin);;
+        System.out.println("Go to Login Screen");
     }
 }
