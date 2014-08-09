@@ -23,6 +23,8 @@ package main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -36,31 +38,31 @@ public class cajaController extends ControlledScreen implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        lSubtotal.setText("$0.00");
+        lTax.setText("$0.00");
+        lTotal.setText("$0.00");
     }
+    @FXML
+    private Label lSubtotal;
+    @FXML
+    private Label lTax;
+    @FXML
+    private Label lTotal;
+    @FXML
+    private TableView<Lista> cajaTable;
+
 
     public void setScreenParent(ScreensController screenParent){
         myController = screenParent;
     }
-
-    @FXML
-    private void goToCaja(ActionEvent event){
-        //myController.setScreen(Main.screen2ID);
-        System.out.println("Go to Caja Screen");
-    }
-
-    @FXML
-    private void goToReportes(ActionEvent event){
-        //myController.setScreen(Main.screen3ID);
-        System.out.println("Go to Reportes Screen");
-    }
-    @FXML
-    private void goToInventario(ActionEvent event){
-        //myController.setScreen(Main.screen3ID);
-        System.out.println("Go to Inv Screen");
-    }
     @FXML
     private void goToLogin(ActionEvent event){
         myController.setScreen(Main.screenLogin);;
+        System.out.println("Go to Login Screen");
+    }
+    @FXML
+    private void goToMain(ActionEvent event){
+        myController.setScreen(Main.screenMain);;
         System.out.println("Go to Login Screen");
     }
 }
