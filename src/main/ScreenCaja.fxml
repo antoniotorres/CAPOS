@@ -21,17 +21,17 @@
         </rowConstraints>
          <children>
             <Button mnemonicParsing="false" onAction="#goToLogin" text="Logout" GridPane.columnIndex="2" />
-            <Button mnemonicParsing="false" text="Cancel" />
+            <Button mnemonicParsing="false" onAction="#goToCancel" text="Cancel" />
             <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToMain" text="Main" GridPane.columnIndex="1" />
          </children>
       </GridPane>
-      <TextField layoutX="14.0" layoutY="60.0" />
-      <Button layoutX="198.0" layoutY="60.0" mnemonicParsing="false" text="ENTER" />
+      <TextField fx:id="tSearch" layoutX="14.0" layoutY="60.0" />
+      <Button layoutX="198.0" layoutY="60.0" mnemonicParsing="false" onAction="#addProduct" text="ENTER" />
       <TableView fx:id="cajaTable" focusTraversable="false" layoutX="14.0" layoutY="113.0" prefHeight="357.0" prefWidth="455.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="Nombre" />
-          <TableColumn prefWidth="75.0" sortable="false" text="Precio" />
-            <TableColumn prefWidth="75.0" sortable="false" text="Codigo" />
+          <TableColumn fx:id="colNombre" prefWidth="75.0" text="Nombre" />
+          <TableColumn fx:id="colPrecio" prefWidth="75.0" sortable="false" text="Precio" />
+            <TableColumn fx:id="colCodigo" prefWidth="75.0" sortable="false" text="Codigo" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

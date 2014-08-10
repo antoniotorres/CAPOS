@@ -108,4 +108,77 @@ public class DbCapos {
         System.out.println("Operation done successfully");
         return value;
     }
+    public static String[] selectProduct(String codigo) {
+        Connection c = null;
+        Statement stmt = null;
+        String[] valor = new String[0];
+        try {
+            File jarPath=new File(DbCapos.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+            String propertiesPath=jarPath.getParentFile().getAbsolutePath();
+
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:"+propertiesPath+"/pos.db");
+            c.setAutoCommit(false);
+            System.out.println("Opened database successfully");
+
+            stmt = c.createStatement();
+            ResultSet rs = stmt.executeQuery( "SELECT * FROM PRODUCTOS WHERE codigo='"+codigo+"';" );
+            while ( rs.next() ) {
+                int id = rs.getInt("id");
+                String  nombre = rs.getString("nombre");
+                String  precio = rs.getString("precio");
+                valor = new String[]{nombre, precio, codigo};
+                System.out.println( "ID = " + id );
+                System.out.println( "NOMBRe = " + nombre );
+                System.out.println( "PRECIO = $" + precio );
+                System.out.println( "CODIGO = " + precio );
+                System.out.println();
+            }
+            rs.close();
+            stmt.close();
+            c.close();
+        } catch ( Exception e ) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
+        }
+
+
+        System.out.println("Operation done successfully");
+        return valor;
+    }
+    public static boolean existeProducto(String codigo) {
+        Connection c = null;
+        Statement stmt = null;
+        boolean value = false;
+        try {
+            File jarPath=new File(DbCapos.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+            String propertiesPath=jarPath.getParentFile().getAbsolutePath();
+
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:"+propertiesPath+"/pos.db");
+            c.setAutoCommit(false);
+            System.out.println("Opened database successfully");
+
+            stmt = c.createStatement();
+            ResultSet rs = stmt.executeQuery( "SELECT * FROM USERS WHERE USERNAME='"+codigo+"';" );
+            while ( rs.next() ) {
+                int id = rs.getInt("id");
+                String  nombre = rs.getString("nombre");
+                String  precio = rs.getString("precio");
+                System.out.println( "ID = " + id );
+                System.out.println( "NOMBRe = " + nombre );
+                System.out.println( "PRECIO = $" + precio );
+                System.out.println( "CODIGO = " + precio );
+                System.out.println();
+            }
+            rs.close();
+            stmt.close();
+            c.close();
+        } catch ( Exception e ) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
+        }
+        System.out.println("Operation done successfully");
+        return value;
+    }
 }

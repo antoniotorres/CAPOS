@@ -20,15 +20,19 @@
 
 package main;
 
+import javafx.scene.control.TableColumn;
+
+import javax.swing.text.TableView;
+import java.util.ArrayList;
+
 /**
  * Created by user on 8/08/14.
  */
 public class Lista {
-    private String nombre, codigo;
-    private float precio;
+    private String nombre, codigo, precio;
 
 
-    public Lista(String nombre, String codigo, float precio) {
+    public Lista(String nombre, String codigo, String precio) {
         this.nombre = nombre;
         this.codigo = codigo;
         this.precio = precio;
@@ -50,11 +54,12 @@ public class Lista {
         this.codigo = codigo;
     }
 
-    public float getPrecio() {
+    public String getPrecio() {
         return precio;
     }
 
-    public void setPrecio(float precio) {
+    public void setPrecio(String precio) {
         this.precio = precio;
     }
+
 }
