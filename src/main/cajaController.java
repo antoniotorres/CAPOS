@@ -93,6 +93,33 @@ public class cajaController extends ControlledScreen implements Initializable {
     @FXML
     private void goToCancel(ActionEvent event){
         myController.setScreen(Main.screenCaja);
+        clear();
+    }
+    //Esta funcion al momento de buscar update la tabla y la informacion de venta
+    @FXML
+    private void addProduct(ActionEvent event){
+        if (DbCapos.existeProducto(tSearch.getText())==true) {
+            String[] valores = DbCapos.selectProduct(tSearch.getText());
+            data.add(new Lista(valores[0], valores[2], valores[1]));
+            addVenta(Float.parseFloat(valores[1]));
+            cajaTable.setItems(data);
+        }
+    }
+    @FXML
+    private void endVenta (ActionEvent event){
+        myController.setScreen(Main.screenImprimir);
+        clear();
+        System.out.println("Go to Imprimir Screen");
+    }
+
+    //Este metodo  agregua los precios al subtotal, Impuesto y Total
+    public void addVenta(float var){
+        this.vSubtotal = this.vSubtotal + var;
+        this.lSubtotal.setText("$ "+String.valueOf(this.vSubtotal));
+        this.vTotal = this.vSubtotal + this.vTax;
+        this.lTotal.setText("$ "+String.valueOf(this.vTotal));
+    }
+    public void clear (){
         data.removeAll(data);
         vSubtotal = 0.00f;
         vTax = 0.00f;
@@ -102,22 +129,5 @@ public class cajaController extends ControlledScreen implements Initializable {
         lTotal.setText("$0.00");
         tSearch.setText("");
         System.out.println("Go to Caja Screen");
-    }
-    //Esta funcion al momento de buscar update la tabla y la informacion de venta
-    @FXML
-    private void addProduct(ActionEvent event){
-        String[] valores = DbCapos.selectProduct(tSearch.getText());
-        data.add(new Lista (valores[0], valores[2], valores[1]));
-        addVenta(Float.parseFloat(valores[1]));
-        cajaTable.setItems(data);
-    }
-
-
-    //Este metodo  agregua los precios al subtotal, Impuesto y Total
-    public void addVenta(float var){
-        this.vSubtotal = this.vSubtotal + var;
-        this.lSubtotal.setText("$ "+String.valueOf(this.vSubtotal));
-        this.vTotal = this.vSubtotal + this.vTax;
-        this.lTotal.setText("$ "+String.valueOf(this.vTotal));
     }
 }

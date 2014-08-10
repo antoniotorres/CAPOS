@@ -38,6 +38,8 @@ public class Main extends Application {
     public static String screenLogin_FXML = "ScreenLogin.fxml";
     public static String screenCaja = "caja";
     public static String screenCaja_FXML = "ScreenCaja.fxml";
+    public static String screenImprimir = "imprimir";
+    public static String getScreenImprimir_FXML = "ScreenImprimir.fxml";
 
 
 
@@ -50,6 +52,7 @@ public class Main extends Application {
         mainContainer.loadScreen(Main.screenMain, Main.screenMain_FXML);
         mainContainer.loadScreen(Main.screenLogin, Main.screenLogin_FXML);
         mainContainer.loadScreen(Main.screenCaja, Main.screenCaja_FXML);
+        mainContainer.loadScreen(Main.screenImprimir, Main.getScreenImprimir_FXML);
 
         mainContainer.setScreen(Main.screenLogin);
 

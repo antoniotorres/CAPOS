@@ -71,6 +71,6 @@
             </AnchorPane>
         </content>
       </TitledPane>
-      <Button layoutX="502.0" layoutY="416.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="97.0" text="VENTA" />
+      <Button layoutX="502.0" layoutY="416.0" mnemonicParsing="false" onAction="#endVenta" prefHeight="50.0" prefWidth="97.0" text="VENTA" />
    </children>
 </AnchorPane>

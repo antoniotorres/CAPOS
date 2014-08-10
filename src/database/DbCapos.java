@@ -160,16 +160,9 @@ public class DbCapos {
             System.out.println("Opened database successfully");
 
             stmt = c.createStatement();
-            ResultSet rs = stmt.executeQuery( "SELECT * FROM USERS WHERE USERNAME='"+codigo+"';" );
+            ResultSet rs = stmt.executeQuery( "SELECT * FROM PRODUCTOS WHERE CODIGO='"+codigo+"';" );
             while ( rs.next() ) {
-                int id = rs.getInt("id");
-                String  nombre = rs.getString("nombre");
-                String  precio = rs.getString("precio");
-                System.out.println( "ID = " + id );
-                System.out.println( "NOMBRe = " + nombre );
-                System.out.println( "PRECIO = $" + precio );
-                System.out.println( "CODIGO = " + precio );
-                System.out.println();
+               value = true;
             }
             rs.close();
             stmt.close();
