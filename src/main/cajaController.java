@@ -30,10 +30,15 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import database.DbCapos;
+import javafx.scene.paint.Color;
 
 public class cajaController extends ControlledScreen implements Initializable {
 
@@ -67,6 +72,8 @@ public class cajaController extends ControlledScreen implements Initializable {
     private TableColumn colPrecio;
     @FXML
     private TextField tSearch;
+    @FXML
+    private TextField tEfectivo;
 
     private float vSubtotal = 0.00f;
     private float vTax = 0.00f;
@@ -107,9 +114,29 @@ public class cajaController extends ControlledScreen implements Initializable {
     }
     @FXML
     private void endVenta (ActionEvent event){
-        myController.setScreen(Main.screenImprimir);
-        clear();
-        System.out.println("Go to Imprimir Screen");
+        Float efectivo = 0.00f;
+        try {
+            efectivo=Float.parseFloat(tEfectivo.getText());
+
+            if (efectivo < vTotal ) {
+                throw new Exception ("");
+            }
+            if (data.isEmpty()){
+                throw new Exception ("");
+            }
+
+            ArchivoBinario();
+
+            //Cambia el color a blanco otraves si pasa los trys
+            tEfectivo.setStyle("-fx-background-color: white;");
+
+            myController.setScreen(Main.screenImprimir);
+            clear();
+            System.out.println("Go to Imprimir Screen");
+        } catch (Exception e) {
+            System.out.println("Error, solo se pueden numeros.");
+            tEfectivo.setStyle("-fx-background-color: red;");
+        }
     }
 
     //Este metodo  agregua los precios al subtotal, Impuesto y Total
@@ -128,6 +155,83 @@ public class cajaController extends ControlledScreen implements Initializable {
         lTax.setText("$0.00");
         lTotal.setText("$0.00");
         tSearch.setText("");
+        tEfectivo.setText("");
+        tEfectivo.setStyle("-fx-background-color: white;");
         System.out.println("Go to Caja Screen");
+    }
+    public void ArchivoBinario() {
+        //Crear archive random llamado  nomina
+        try
+        { RandomAccessFile miArchivo=new RandomAccessFile("ArchivoBinario.dat","rw"); // rw significa que el archive se podrá leer  y escribir
+            //inicializando variables para leer los datos de teclado
+            String op="";
+            int i;
+            //Si hay espacios los elimina
+            Float subtotal = vSubtotal;
+            Float tax = vTax;
+            Float total = vTotal;
+            Float efectivo = Float.parseFloat(tEfectivo.getText());
+
+            String[] nombre = new String[data.size()];
+            String[] codigo = new String[data.size()];
+            String[] precio = new String[data.size()];
+
+            // Pasa la informacion del ArrayLista a un arreglo y le agregua espacios si no completa
+            for(int x=0; x < codigo.length; x++ ){
+                codigo[x]=data.get(x).getCodigo();
+                if (codigo[x].length()<20){
+                    for (int y=codigo[x].length(); y<20;y++)
+                        codigo[x]=codigo[x] + " ";
+                } else {
+                    codigo[x]=codigo[x].substring(0,20);
+                }
+
+            }
+            // Pasa la informacion del ArrayLista a un arreglo y le agregua espacios si no completa
+            for(int x=0; x < nombre.length; x++ ){
+                nombre[x]=data.get(x).getNombre();
+                if (nombre[x].length()<20){
+                    for (int y=nombre[x].length(); y<20;y++)
+                        nombre[x]=nombre[x] + " ";
+                } else {
+                    nombre[x]=nombre[x].substring(0,20);
+                }
+
+            }
+            // Pasa la informacion del ArrayLista a un arreglo y le agregua espacios si no completa
+            for(int x=0; x < precio.length; x++ ){
+                precio[x]=data.get(x).getPrecio();
+                if (precio[x].length()<20){
+                    for (int y=precio[x].length(); y<20;y++)
+                        precio[x]=precio[x] + " ";
+                } else {
+                    precio[x]=precio[x].substring(0,20);
+                }
+
+            }
+
+            for(int x=0; x < codigo.length; x++ ){
+                System.out.println (nombre[x]+" "+codigo[x]+" "+precio[x]);
+            }
+            //grabando en el archivo
+            if (miArchivo.length()!=0)
+                miArchivo.seek(miArchivo.length()); // posiciona al final del archivo el cursor o apuntador
+            //empieza a grabrar los datos en el archivo
+            miArchivo.writeFloat(subtotal);
+            miArchivo.writeFloat(tax);
+            miArchivo.writeFloat(total);
+            miArchivo.writeFloat(efectivo);
+            for(int x=0; x < data.size(); x++ ) {
+                miArchivo.writeChars(codigo[x]);
+                miArchivo.writeChars(nombre[x]);
+                miArchivo.writeChars(precio[x]);
+            }
+
+
+            System.out.println ("Venta registrada");
+            miArchivo.close();  // cierra el archivo cuando ya no desea grabar mas
+        } catch( IOException e) {
+            System.out.println("ERROR -1: Archivo no encontrado");
+        }
     }
 }

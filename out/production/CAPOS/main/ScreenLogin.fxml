@@ -28,5 +28,6 @@
          </children>
       </GridPane>
       <Button alignment="CENTER" contentDisplay="CENTER" layoutX="264.0" layoutY="281.0" mnemonicParsing="false" onAction="#loginButton" text="Iniciar Session" />
+      <Label fx:id="lError" layoutX="302.0" layoutY="335.0" textFill="RED" />
    </children>
 </AnchorPane>

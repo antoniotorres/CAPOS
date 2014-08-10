@@ -25,6 +25,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -37,10 +40,11 @@ public class imprimirController extends ControlledScreen implements Initializabl
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+
     }
 
     @FXML
-    private static Label lCambio;
+    private Label lCambio;
 
     public void setScreenParent(ScreensController screenParent){
         myController = screenParent;
@@ -50,5 +54,66 @@ public class imprimirController extends ControlledScreen implements Initializabl
     private void goToCaja(ActionEvent event){
         myController.setScreen(Main.screenCaja);
         System.out.println("Go to Caja Screen");
+    }
+    @FXML
+    private void imprimir(ActionEvent event){
+        File file = new File("ArchivoBinario.dat");
+        if (file.exists())
+            update();
+    }
+    public void update() {
+        //Crear archive random llamado  nomina
+        try
+        {
+            RandomAccessFile miArchivo=new RandomAccessFile("ArchivoBinario.dat","rw"); // rw significa que el archive se podrá leer  y escribir
+            //inicializando variables para leer los datos de teclado
+            String op="";
+            int i;
+            int tamRegistro=120;
+            Long l = miArchivo.length();
+            int cantRegistros=(((Integer.valueOf(l.intValue()))-16)/tamRegistro);
+            miArchivo.seek(0);
+            Float subtotal = miArchivo.readFloat();
+            Float tax = miArchivo.readFloat();
+            Float total = miArchivo.readFloat();
+            Float efectivo = miArchivo.readFloat();
+            System.out.println (subtotal+" "+tax+" "+total+" "+l+" "+cantRegistros+" "+"deb6");
+            String[] nombre = new String[cantRegistros];
+            String[] codigo = new String[cantRegistros];
+            String[] precio = new String[cantRegistros];
+            // Pasa la informacion del ArrayLista a un arreglo y le agregua espacios si no completa
+            for(int x=0; x < cantRegistros; x++ ){
+                codigo[x]="";
+                for (int j=0; j<20;j++)
+                    codigo[x]= codigo[x] + miArchivo.readChar();
+                nombre[x]="";
+                for (int j=0; j<20;j++)
+                    nombre[x]= nombre[x] + miArchivo.readChar();
+                precio[x]="";
+                for (int j=0; j<20;j++)
+                    precio[x]= precio[x] + miArchivo.readChar();
+            }
+            for(int x=0; x < codigo.length; x++ ){
+                System.out.println (nombre[x]+" "+codigo[x]+" "+precio[x]);
+            }
+
+            System.out.println ("Venta registrada");
+            miArchivo.close();  // cierra el archivo cuando ya no desea grabar mas
+
+
+
+
+            lCambio.setText("$"+Float.toString(efectivo-total));
+
+
+
+
+        } catch( IOException e) {
+            System.out.println("ERROR -1: Archivo no encontrado");
+        } finally {
+            File file = new File("ArchivoBinario.dat");
+            file.delete();
+        }
+
     }
 }

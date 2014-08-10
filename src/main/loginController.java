@@ -27,6 +27,7 @@ import javafx.fxml.Initializable;
 import java.net.URL;
 import java.util.ResourceBundle;
 import database.DbCapos;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class loginController extends ControlledScreen implements Initializable {
@@ -48,6 +49,8 @@ public class loginController extends ControlledScreen implements Initializable {
     private TextField username;
     @FXML
     private TextField password;
+    @FXML
+    private Label lError;
 
     @FXML
     private void loginButton(ActionEvent event){
@@ -57,8 +60,11 @@ public class loginController extends ControlledScreen implements Initializable {
             System.out.println("Username and Password Match");
             //Este codigo va a cambiar la pantalla a screenMain
             myController.setScreen(Main.screenMain);
+            lError.setText("");
+
         }else {
             System.out.println("Error: Maybe Username or Password wrong");
+            lError.setText("Error: Usuario o Contrasena Mal");
         }
     }
 }
