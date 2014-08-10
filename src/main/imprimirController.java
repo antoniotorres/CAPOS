@@ -20,9 +20,11 @@
 
 package main;
 
+import database.DbCapos;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 import java.io.File;
@@ -40,11 +42,17 @@ public class imprimirController extends ControlledScreen implements Initializabl
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        lCambio.setText("");
+        bRegresar.setVisible(false);
 
     }
 
     @FXML
     private Label lCambio;
+    @FXML
+    private Button bRegresar;
+    @FXML
+    private Button bImprimir;
 
     public void setScreenParent(ScreensController screenParent){
         myController = screenParent;
@@ -54,12 +62,18 @@ public class imprimirController extends ControlledScreen implements Initializabl
     private void goToCaja(ActionEvent event){
         myController.setScreen(Main.screenCaja);
         System.out.println("Go to Caja Screen");
+        bRegresar.setVisible(false);
+        bImprimir.setVisible(true);
+        lCambio.setText("");
     }
     @FXML
     private void imprimir(ActionEvent event){
         File file = new File("ArchivoBinario.dat");
-        if (file.exists())
+        if (file.exists()) {
+            bRegresar.setVisible(true);
+            bImprimir.setVisible(false);
             update();
+        }
     }
     public void update() {
         //Crear archive random llamado  nomina
@@ -104,6 +118,9 @@ public class imprimirController extends ControlledScreen implements Initializabl
 
 
             lCambio.setText("$"+Float.toString(efectivo-total));
+
+
+            DbCapos.insertVenta("Efectivo", total);
 
 
 

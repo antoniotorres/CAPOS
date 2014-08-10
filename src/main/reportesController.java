@@ -20,13 +20,16 @@
 
 package main;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+import database.DbCapos;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TextField;
 
-public class mainController extends ControlledScreen implements Initializable {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class reportesController extends ControlledScreen implements Initializable {
 
     ScreensController myController;
     /**
@@ -42,24 +45,25 @@ public class mainController extends ControlledScreen implements Initializable {
     }
 
     @FXML
-    private void goToCaja(ActionEvent event){
-        myController.setScreen(Main.screenCaja);
-        System.out.println("Go to Caja Screen");
-    }
+    private TextField lVenta;
+    @FXML
+    private TextField lDinero;
 
     @FXML
-    private void goToReportes(ActionEvent event){
-        myController.setScreen(Main.screenReportes);
-        System.out.println("Go to Reportes Screen");
-    }
-    @FXML
-    private void goToInventario(ActionEvent event){
-        //myController.setScreen(Main.screen3ID);
-        System.out.println("Go to Inv Screen");
-    }
-    @FXML
     private void goToLogin(ActionEvent event){
-        myController.setScreen(Main.screenLogin);;
+        myController.setScreen(Main.screenLogin);
         System.out.println("Go to Login Screen");
+    }
+    @FXML
+    private void goToMain(ActionEvent event){
+        myController.setScreen(Main.screenMain);
+        System.out.println("Go to Main Screen");
+    }
+    @FXML
+    private void actualizar(ActionEvent event){
+        String[] valores = DbCapos.selectVentas();
+        lVenta.setText(valores[0]);
+        lDinero.setText(valores[1]);
+
     }
 }

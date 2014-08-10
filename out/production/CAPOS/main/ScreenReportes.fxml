@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" minHeight="480.0" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.reportesController">
+   <children>
+       <GridPane hgap="10.0" layoutX="417.0" layoutY="14.0">
+           <columnConstraints>
+               <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="63.0" />
+            <ColumnConstraints />
+           </columnConstraints>
+           <rowConstraints>
+               <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" vgrow="SOMETIMES" />
+           </rowConstraints>
+           <children>
+               <Button mnemonicParsing="false" onAction="#goToLogin" text="Logout" GridPane.columnIndex="1" />
+               <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToMain" text="Main" />
+           </children>
+       </GridPane>
+      <Label layoutX="97.0" layoutY="167.0" text="Total de Ventas:" />
+      <Button layoutX="14.0" layoutY="75.0" mnemonicParsing="false" onAction="#actualizar" text="Actualizar" />
+      <Label layoutX="364.0" layoutY="167.0" text="Total de Dinero:" />
+      <TextField fx:id="lVenta" editable="false" layoutX="65.0" layoutY="203.0" />
+      <TextField fx:id="lDinero" editable="false" layoutX="332.0" layoutY="203.0" />
+   </children>
+</AnchorPane>

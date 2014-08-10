@@ -2,6 +2,7 @@ package database;
 
 import java.io.File;
 import java.sql.*;
+import java.text.DateFormat;
 
 /**
  * Created by user on 6/28/14.
@@ -173,5 +174,75 @@ public class DbCapos {
         }
         System.out.println("Operation done successfully");
         return value;
+    }
+    public static void insertVenta(String tipo, Float cantidad) {
+        Connection c = null;
+        Statement stmt = null;
+        java.util.Date date= new java.util.Date();
+        String time = DateFormat.getDateInstance().format(new Timestamp(date.getTime()));
+        System.out.println(time);
+        try {
+            File jarPath=new File(DbCapos.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+            String propertiesPath=jarPath.getParentFile().getAbsolutePath();
+
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:"+propertiesPath+"/pos.db");
+            c.setAutoCommit(false);
+            System.out.println("Opened database successfully");
+
+            stmt = c.createStatement();
+            String sql = "INSERT INTO VENTAS (sale_time,payment_type,payment_amount) " +
+                    "VALUES ( '"+new Timestamp(date.getTime())+"','" +tipo+"',"+cantidad+");";
+            //String sql = "INSERT INTO " + table + " (NAME,AGE,ADDRESS,SALARY) " +
+            //        "VALUES ('Mark', 25, 'Rich-Mond ', 65000.00 );";
+            stmt.executeUpdate(sql);
+            ResultSet rs = stmt.getGeneratedKeys();
+            while ( rs.next() ) {
+                int id = rs.getInt(1);
+                System.out.println(id);
+            }
+
+            stmt.close();
+            c.commit();
+            c.close();
+        } catch ( Exception e ) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
+        }
+        System.out.println("Records created successfully");
+    }
+    public static String[] selectVentas() {
+        Connection c = null;
+        Statement stmt = null;
+        String[] valor = new String[0];
+        try {
+            File jarPath=new File(DbCapos.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+            String propertiesPath=jarPath.getParentFile().getAbsolutePath();
+
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:"+propertiesPath+"/pos.db");
+            c.setAutoCommit(false);
+            System.out.println("Opened database successfully");
+
+            stmt = c.createStatement();
+            ResultSet rs = stmt.executeQuery( "SELECT * FROM VENTAS" );
+            int x =0;
+            float y=0.00f;
+            while ( rs.next() ) {
+                y= y+rs.getFloat("payment_amount");
+                x++;
+            }
+            valor = new String[]{String.valueOf(x), String.valueOf(y)};
+            rs.close();
+            stmt.close();
+            c.close();
+        } catch ( Exception e ) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
+        }
+
+
+        System.out.println("Operation done successfully");
+        return valor;
     }
 }
