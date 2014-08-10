@@ -54,7 +54,7 @@ public class mainController extends ControlledScreen implements Initializable {
     }
     @FXML
     private void goToInventario(ActionEvent event){
-        //myController.setScreen(Main.screen3ID);
+        myController.setScreen(Main.screenInventario);
         System.out.println("Go to Inv Screen");
     }
     @FXML
