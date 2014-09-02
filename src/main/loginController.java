@@ -29,6 +29,8 @@ import java.util.ResourceBundle;
 import database.DbCapos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class loginController extends ControlledScreen implements Initializable {
 
@@ -39,12 +41,16 @@ public class loginController extends ControlledScreen implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        Image image = new Image("res/icons/logo/logo-256x256.png", 256, 256, false, false);
+        imgLogo.setImage(image);
     }
 
     public void setScreenParent(ScreensController screenParent){
         myController = screenParent;
     }
 
+    @FXML
+    private ImageView imgLogo;
     @FXML
     private TextField username;
     @FXML
@@ -54,6 +60,7 @@ public class loginController extends ControlledScreen implements Initializable {
 
     @FXML
     private void loginButton(ActionEvent event){
+
         //myController.setScreen(Main.screen2ID);
         System.out.println("loginButton");
         if (DbCapos.selectLogin(username.getText(), password.getText())) {

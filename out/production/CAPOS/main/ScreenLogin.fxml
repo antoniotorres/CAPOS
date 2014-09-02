@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.geometry.*?>
@@ -29,5 +30,6 @@
       </GridPane>
       <Button alignment="CENTER" contentDisplay="CENTER" layoutX="264.0" layoutY="281.0" mnemonicParsing="false" onAction="#loginButton" text="Iniciar Session" />
       <Label fx:id="lError" layoutX="302.0" layoutY="335.0" textFill="RED" />
+      <ImageView fx:id="imgLogo" fitHeight="128.0" fitWidth="128.0" layoutX="256.0" layoutY="335.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>
