@@ -25,6 +25,9 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import properties.PropCapos;
 
 public class mainController extends ControlledScreen implements Initializable {
 
@@ -35,12 +38,18 @@ public class mainController extends ControlledScreen implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        //Esta parte del codigo muestra el logo de la empresa
+        PropCapos prop = new PropCapos();
+        Image image = new Image("file:"+prop.getLogo(), 128, 50, false, false);
+        imgLogoCom.setImage(image);
     }
 
     public void setScreenParent(ScreensController screenParent){
         myController = screenParent;
     }
 
+    @FXML
+    private ImageView imgLogoCom;
     @FXML
     private void goToCaja(ActionEvent event){
         myController.setScreen(Main.screenCaja);

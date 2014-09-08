@@ -24,6 +24,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import database.DbCapos;
@@ -31,6 +32,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import properties.PropCapos;
 
 public class loginController extends ControlledScreen implements Initializable {
 
@@ -41,8 +43,10 @@ public class loginController extends ControlledScreen implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        Image image = new Image("res/icons/logo/logo-256x256.png", 256, 256, false, false);
-        imgLogo.setImage(image);
+        //Esta parte del codigo muestra el logo de la empresa
+        PropCapos prop = new PropCapos();
+            Image image = new Image("file:"+prop.getLogo(), 256, 100, false, false);
+            imgLogoCom.setImage(image);
     }
 
     public void setScreenParent(ScreensController screenParent){
@@ -50,7 +54,7 @@ public class loginController extends ControlledScreen implements Initializable {
     }
 
     @FXML
-    private ImageView imgLogo;
+    private ImageView imgLogoCom;
     @FXML
     private TextField username;
     @FXML
@@ -68,6 +72,7 @@ public class loginController extends ControlledScreen implements Initializable {
             //Este codigo va a cambiar la pantalla a screenMain
             myController.setScreen(Main.screenMain);
             lError.setText("");
+            password.setText("");
 
         }else {
             System.out.println("Error: Maybe Username or Password wrong");

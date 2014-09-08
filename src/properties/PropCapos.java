@@ -1,9 +1,6 @@
 package properties;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.Properties;
 
 /**
@@ -37,6 +34,7 @@ public class PropCapos {
                 prop.setProperty("dbpassword", "capos");
                 prop.setProperty("dname", "capos");
                 prop.setProperty("dtype", "sqlite");
+                prop.setProperty("logo", "logo.png");
 
                 // save properties to project root folder
                 prop.store(output, null);
@@ -55,5 +53,18 @@ public class PropCapos {
             }
         }
         return caposProp.getPath();
+    }
+    public String getLogo(){
+        File jarPath=new File(PropCapos.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+        String propertiesPath=jarPath.getParentFile().getAbsolutePath();
+
+        Properties prop = new Properties();
+        try{
+            prop.load(new FileInputStream(propertiesPath+"/capos.properties"));
+        }catch(Exception e){
+            System.out.println("file not found.");
+            e.printStackTrace();
+        }
+        return propertiesPath+"/"+prop.getProperty("logo");
     }
 }

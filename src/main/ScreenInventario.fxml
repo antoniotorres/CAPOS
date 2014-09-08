@@ -27,11 +27,6 @@
       <Label layoutX="10.0" layoutY="115.0" text="Cambiar:" />
       <Label layoutX="17.0" layoutY="153.0" text="Borrar:" />
       <Label layoutX="8.0" layoutY="190.0" text="Agreguar:" />
-      <TextField fx:id="tViewCod" layoutX="73.0" layoutY="69.0" prefHeight="25.0" prefWidth="105.0" />
-      <Button layoutX="191.0" layoutY="69.0" mnemonicParsing="false" onAction="#bView" prefHeight="25.0" prefWidth="46.0" text="OK" />
-      <TextField fx:id="tViewNom" editable="false" layoutX="253.0" layoutY="69.0" prefHeight="25.0" prefWidth="105.0" />
-      <TextField fx:id="tViewPre" editable="false" layoutX="380.0" layoutY="69.0" prefHeight="25.0" prefWidth="105.0" />
-      <TextField fx:id="tViewCan" editable="false" layoutX="506.0" layoutY="69.0" prefHeight="25.0" prefWidth="105.0" />
       <TextField disable="true" layoutX="73.0" layoutY="110.0" prefHeight="25.0" prefWidth="105.0" />
       <Button disable="true" layoutX="191.0" layoutY="110.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="46.0" text="OK" />
       <TextField disable="true" layoutX="253.0" layoutY="110.0" prefHeight="25.0" prefWidth="105.0" />
@@ -45,8 +40,23 @@
       <TextField fx:id="tAgrePre" layoutX="380.0" layoutY="185.0" prefHeight="25.0" prefWidth="105.0" />
       <TextField fx:id="tAgreCan" layoutX="506.0" layoutY="185.0" prefHeight="25.0" prefWidth="105.0" />
       <Label layoutX="99.0" layoutY="47.0" text="CODIGO" />
-      <Label layoutX="279.0" layoutY="48.0" text="NOMBRE" />
       <Label layoutX="406.0" layoutY="48.0" text="PRECIO" />
       <Label layoutX="519.0" layoutY="48.0" text="CANTIDAD" />
+      <TitledPane animated="false" collapsible="false" layoutX="20.0" layoutY="107.0" prefHeight="206.0" prefWidth="600.0" text="Producto Nuevo">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <TextField fx:id="tRegNom" layoutX="23.0" layoutY="49.0" prefHeight="25.0" prefWidth="105.0" />
+                  <TextField fx:id="tRegCod" editable="false" layoutX="24.0" layoutY="110.0" prefHeight="25.0" prefWidth="105.0" />
+                  <TextField fx:id="tViewPre" editable="false" layoutX="149.0" layoutY="50.0" prefHeight="25.0" prefWidth="105.0" />
+                  <TextField fx:id="tViewCan" editable="false" layoutX="149.0" layoutY="110.0" prefHeight="25.0" prefWidth="105.0" />
+                  <Button layoutX="299.0" layoutY="63.0" mnemonicParsing="false" onAction="#bView" prefHeight="25.0" prefWidth="113.0" text="REGISTRAR" />
+                  <Label layoutX="28.0" layoutY="27.0" text="NOMBRE" />
+                  <Label layoutX="157.0" layoutY="93.0" prefHeight="15.0" prefWidth="79.0" text="CANTIDAD" />
+                  <Label layoutX="28.0" layoutY="93.0" prefHeight="0.0" prefWidth="58.0" text="CODIGO" />
+                  <Label layoutX="157.0" layoutY="27.0" prefHeight="0.0" prefWidth="58.0" text="PRECIO" />
+               </children></AnchorPane>
+        </content>
+      </TitledPane>
    </children>
 </AnchorPane>
