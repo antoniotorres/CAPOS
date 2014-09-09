@@ -46,23 +46,22 @@ public class inventarioController extends ControlledScreen implements Initializa
     }
 
     @FXML
-    private TextField tViewCod;
+    private TextField tRegCod;
     @FXML
-    private TextField tViewNom;
+    private TextField tRegNom;
     @FXML
-    private TextField tViewPre;
+    private TextField tRegPre;
     @FXML
-    private TextField tViewCan;
+    private TextField tRegCan;
     @FXML
-    private TextField tAgreCod;
+    private TextField tEdtCod;
     @FXML
-    private TextField tAgreNom;
+    private TextField tEdtNom;
     @FXML
-    private TextField tAgrePre;
+    private TextField tEdtPre;
     @FXML
-    private TextField tAgreCan;
-    @FXML
-    private TextField tBorrar;
+    private TextField tEdtCan;
+
 
     @FXML
     private void goToMain(ActionEvent event){
@@ -76,23 +75,35 @@ public class inventarioController extends ControlledScreen implements Initializa
     }
     @FXML
     private void bBorrar(ActionEvent event){
-        if(DbCapos.existeProducto(tBorrar.getText())){
-            DbCapos.deleteProducto(tBorrar.getText());
+        if(DbCapos.existeProducto(tEdtCod.getText())){
+            DbCapos.deleteProducto(tEdtCod.getText());
         }
     }
     @FXML
-    private void bAgreguar(ActionEvent event){
-        if(DbCapos.existeProducto(tAgreCod.getText())==false){
-            DbCapos.insertProducto(tAgreCod.getText(), tAgreNom.getText(), Float.parseFloat(tAgrePre.getText()), Integer.parseInt(tAgreCan.getText()));
+    private void bBuscar(ActionEvent event){
+        if(!tEdtCod.getText().isEmpty() && DbCapos.existeProducto(tEdtCod.getText())) {
+            String[] valores = DbCapos.selectProduct(tEdtCod.getText());
+            tEdtNom.setText(valores[0]);//Imprime el nombre en el textbox
+            tEdtPre.setText(valores[1]);//Imprime el precio en el textbox
+            tEdtCan.setText(valores[3]);//Imprime la cantidad en el textbox
+        }
+    }
+    @FXML
+    private void bEditar(ActionEvent event){
+    }
+    @FXML
+    private void bRegistrar(ActionEvent event){
+        if(DbCapos.existeProducto(tRegCod.getText())==false){
+            DbCapos.insertProducto(tRegCod.getText(), tRegNom.getText(), Float.parseFloat(tRegPre.getText()), Integer.parseInt(tRegCan.getText()));
         }
     }
     @FXML
     private void bView(ActionEvent event){
-        if(DbCapos.existeProducto(tViewCod.getText())){
-            String[] valores = DbCapos.selectProduct(tViewCod.getText());
-            tViewNom.setText(valores[0]);
-            tViewPre.setText(valores[1]);
-            tViewCan.setText(valores[3]);
+        if(DbCapos.existeProducto(tEdtCod.getText())){
+            String[] valores = DbCapos.selectProduct(tEdtCod.getText());
+            tEdtNom.setText(valores[0]);
+            tEdtPre.setText(valores[1]);
+            tEdtCan.setText(valores[3]);
         }
     }
 }

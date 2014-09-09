@@ -24,6 +24,7 @@ import database.DbCapos;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
@@ -48,6 +49,8 @@ public class reportesController extends ControlledScreen implements Initializabl
     private TextField lVenta;
     @FXML
     private TextField lDinero;
+    @FXML
+    private DatePicker dFecha;
 
     @FXML
     private void goToLogin(ActionEvent event){
@@ -64,6 +67,7 @@ public class reportesController extends ControlledScreen implements Initializabl
         String[] valores = DbCapos.selectVentas();
         lVenta.setText(valores[0]);
         lDinero.setText(valores[1]);
+        System.out.println(dFecha.getValue());
 
     }
 }
