@@ -48,12 +48,12 @@
             </AnchorPane>
          </content>
       </TitledPane>
-      <TableView editable="true" layoutX="19.0" layoutY="356.0" prefHeight="115.0" prefWidth="602.0">
+      <TableView fx:id="proTable" editable="true" layoutX="19.0" layoutY="356.0" prefHeight="115.0" prefWidth="602.0">
         <columns>
-          <TableColumn prefWidth="178.0" text="CODIGO" />
-          <TableColumn prefWidth="227.0" text="NOMBRE" />
-            <TableColumn prefWidth="100.0" text="PRECIO" />
-            <TableColumn prefWidth="95.0" text="CANTIDAD" />
+          <TableColumn fx:id="colCodigo" prefWidth="178.0" text="CODIGO" />
+          <TableColumn fx:id="colNombre" prefWidth="227.0" text="NOMBRE" />
+            <TableColumn fx:id="colPrecio" prefWidth="100.0" text="PRECIO" />
+            <TableColumn fx:id="colCantidad" prefWidth="95.0" text="CANTIDAD" />
         </columns>
       </TableView>
        <GridPane hgap="10.0" layoutX="417.0" layoutY="14.0">

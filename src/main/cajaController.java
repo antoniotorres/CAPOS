@@ -107,8 +107,8 @@ public class cajaController extends ControlledScreen implements Initializable {
     private void addProduct(ActionEvent event){
         if (DbCapos.existeProducto(tSearch.getText())==true) {
             String[] valores = DbCapos.selectProduct(tSearch.getText());
-            data.add(new Lista(valores[0], valores[2], valores[1]));
-            addVenta(Float.parseFloat(valores[1]));
+            data.add(new Lista(valores[0], valores[1], valores[2]));
+            addVenta(Float.parseFloat(valores[2]));
             cajaTable.setItems(data);
         }
     }

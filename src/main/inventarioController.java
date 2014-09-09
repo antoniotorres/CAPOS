@@ -21,12 +21,13 @@
 package main;
 
 import database.DbCapos;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -40,8 +41,29 @@ public class inventarioController extends ControlledScreen implements Initializa
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        colNombre.setCellValueFactory( new PropertyValueFactory<lProducto, String>("nombre"));
+        colPrecio.setCellValueFactory( new PropertyValueFactory<lProducto, Float>("precio"));
+        colCodigo.setCellValueFactory( new PropertyValueFactory<lProducto, String>("codigo"));
+        colCantidad.setCellValueFactory( new PropertyValueFactory<lProducto, String>("cantidad"));
         lRegLab.setText("");
         lEdtLab.setText("");
+        int[] num = DbCapos.numProductos();
+        for (int x=0; x<num.length; x++) {
+            String[] valores = DbCapos.selectProduct(num[x]);
+            //System.out.println(valores[0]+valores[1]+valores[2]+valores[3]);
+            data.add(new lProducto(valores[0], valores[2], valores[1], valores[3]));
+        }
+        proTable.setItems(data);
+    }
+    public void clear(){
+        data.removeAll(data);
+        int[] num = DbCapos.numProductos();
+        for (int x=0; x<num.length; x++) {
+            String[] valores = DbCapos.selectProduct(num[x]);
+            //System.out.println(valores[0]+valores[1]+valores[2]+valores[3]);
+            data.add(new lProducto(valores[0], valores[2], valores[1], valores[3]));
+        }
+        proTable.setItems(data);
     }
 
     public void setScreenParent(ScreensController screenParent){
@@ -68,6 +90,19 @@ public class inventarioController extends ControlledScreen implements Initializa
     private Label lRegLab;
     @FXML
     private Label lEdtLab;
+    @FXML
+    private TableView<lProducto> proTable;
+    @FXML
+    private TableColumn colNombre;
+    @FXML
+    private TableColumn colCodigo;
+    @FXML
+    private TableColumn colPrecio;
+    @FXML
+    private TableColumn colCantidad;
+
+    private final ObservableList<lProducto> data =
+            FXCollections.observableArrayList();
 
 
     @FXML
@@ -93,17 +128,22 @@ public class inventarioController extends ControlledScreen implements Initializa
     }
     @FXML
     private void bBorrar(ActionEvent event){
-        if(DbCapos.existeProducto(tEdtCod.getText())){
+        if(!DbCapos.existeProducto(tEdtCod.getText())==false && !tEdtCod.getText().equals("Ya Existe!") && !tEdtCod.getText().equals("")){
             DbCapos.deleteProducto(tEdtCod.getText());
             tEdtCod.setText("");
             tEdtNom.setText("");
             tEdtCan.setText("");
             tEdtPre.setText("");
+            lEdtLab.setText("");
+            clear();
+        } else {
+            lEdtLab.setText("No Existe o Error");
         }
     }
     @FXML
     private void bBuscar(ActionEvent event){
-        if(!tEdtCod.getText().isEmpty() && DbCapos.existeProducto(tEdtCod.getText())) {
+        tEdtCod.setText(tEdtCod.getText().trim());
+        if(!DbCapos.existeProducto(tEdtCod.getText())==false && !tEdtCod.getText().equals("Ya Existe!") && !tEdtCod.getText().equals("")){
             String[] valores = DbCapos.selectProduct(tEdtCod.getText());
             tEdtNom.setText(valores[0]);//Imprime el nombre en el textbox
             tEdtPre.setText(valores[1]);//Imprime el precio en el textbox
@@ -114,6 +154,25 @@ public class inventarioController extends ControlledScreen implements Initializa
     }
     @FXML
     private void bEditar(ActionEvent event){
+        tEdtCod.setText(tEdtCod.getText().trim());
+        tEdtNom.setText(tEdtNom.getText().trim());
+        tEdtCan.setText(tEdtCan.getText().trim());
+        tEdtPre.setText(tEdtPre.getText().trim());
+        if(!DbCapos.existeProducto(tEdtCod.getText())==false && !tEdtCod.getText().equals("Ya Existe!") && !tEdtCod.getText().equals("")){
+            try {
+                DbCapos.updateProducto(tEdtCod.getText(), tEdtNom.getText(), Float.parseFloat(tEdtPre.getText()), Integer.parseInt(tEdtCan.getText()));
+                lEdtLab.setText("");
+                tEdtCan.setStyle("-fx-background-color: white;");
+                tEdtPre.setStyle("-fx-background-color: white;");
+                clear();
+
+            } catch (Exception e) {
+                System.out.println("Error, solo se pueden numeros.");
+                tEdtPre.setStyle("-fx-background-color: red;");
+                tEdtCan.setStyle("-fx-background-color: red;");
+                lEdtLab.setText("Numeros Invalidos");
+            }
+        }
     }
     @FXML
     private void bRegistrar(ActionEvent event){
@@ -131,6 +190,7 @@ public class inventarioController extends ControlledScreen implements Initializa
                 tRegCan.setText("");
                 tRegPre.setText("");
                 lRegLab.setText("");
+                clear();
             } catch (Exception e) {
                 System.out.println("Error, solo se pueden numeros.");
                 tRegPre.setStyle("-fx-background-color: red;");

@@ -130,11 +130,50 @@ public class DbCapos {
                 String  nombre = rs.getString("nombre");
                 String  precio = rs.getString("precio");
                 String  cantidad = rs.getString("cantidad");
-                valor = new String[]{nombre, precio, codigo, cantidad};
+                valor = new String[]{nombre, codigo, precio, cantidad};
                 System.out.println( "ID = " + id );
                 System.out.println( "NOMBRe = " + nombre );
                 System.out.println( "PRECIO = $" + precio );
                 System.out.println( "CODIGO = " + precio );
+                System.out.println();
+            }
+            rs.close();
+            stmt.close();
+            c.close();
+        } catch ( Exception e ) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
+        }
+
+
+        System.out.println("Operation done successfully");
+        return valor;
+    }
+    public static String[] selectProduct(int id) {
+        Connection c = null;
+        Statement stmt = null;
+        String[] valor = null;
+        try {
+            File jarPath=new File(DbCapos.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+            String propertiesPath=jarPath.getParentFile().getAbsolutePath();
+
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:"+propertiesPath+"/pos.db");
+            c.setAutoCommit(false);
+            System.out.println("Opened database successfully");
+
+            stmt = c.createStatement();
+            ResultSet rs = stmt.executeQuery( "SELECT * FROM PRODUCTOS WHERE ID='"+id+"';" );
+            while ( rs.next() ) {
+                String  nombre = rs.getString("nombre");
+                String  precio = rs.getString("precio");
+                String  cantidad = rs.getString("cantidad");
+                String  codigo = rs.getString("codigo");
+                valor = new String[]{nombre, precio, codigo, cantidad};
+                System.out.println( "ID = " + id );
+                System.out.println( "NOMBRE = " + nombre );
+                System.out.println( "PRECIO = $" + precio );
+                System.out.println( "CODIGO = " + codigo );
                 System.out.println();
             }
             rs.close();
@@ -268,6 +307,34 @@ public class DbCapos {
         }
         System.out.println("Records created successfully");
     }
+    public static void updateProducto(String codigo, String nombre, float precio, int cant) {
+        Connection c = null;
+        Statement stmt = null;
+        java.util.Date date= new java.util.Date();
+        String time = DateFormat.getDateInstance().format(new Timestamp(date.getTime()));
+        System.out.println(time);
+        try {
+            File jarPath = new File(DbCapos.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+            String propertiesPath = jarPath.getParentFile().getAbsolutePath();
+
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:" + propertiesPath + "/pos.db");
+            c.setAutoCommit(false);
+            System.out.println("Opened database successfully");
+
+            stmt = c.createStatement();
+            String sql = "UPDATE PRODUCTOS set NOMBRE='"+nombre+"', PRECIO='"+precio+"', CANTIDAD='"+cant+"' where CODIGO='"+codigo+"';";
+            stmt.executeUpdate(sql);
+
+            stmt.close();
+            c.commit();
+            c.close();
+        } catch ( Exception e ) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
+        }
+        System.out.println("Records created successfully");
+        }
     public static String[] selectVentas(LocalDate date) {
         Connection c = null;
         Statement stmt = null;
@@ -302,6 +369,46 @@ public class DbCapos {
 
         System.out.println("Operation done successfully");
         return valor;
+    }
+    public static int[] numProductos() {
+        Connection c = null;
+        Statement stmt = null;
+        int[] x =null;
+        try {
+            File jarPath=new File(DbCapos.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+            String propertiesPath=jarPath.getParentFile().getAbsolutePath();
+
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:"+propertiesPath+"/pos.db");
+            c.setAutoCommit(false);
+            System.out.println("Opened database successfully");
+
+            stmt = c.createStatement();
+            ResultSet rs = stmt.executeQuery( "SELECT * FROM PRODUCTOS;" );
+            int y =0;
+            while ( rs.next() ) {
+                y++;
+            }
+            x = new int[y];
+            stmt = c.createStatement();
+            rs = stmt.executeQuery( "SELECT * FROM PRODUCTOS;" );
+            y =0;
+            while ( rs.next() ) {
+                x[y]= rs.getInt("id");
+                y++;
+            }
+
+            rs.close();
+            stmt.close();
+            c.close();
+        } catch ( Exception e ) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
+        }
+
+
+        System.out.println("Operation done successfully");
+        return x;
     }
     public static float mesVentas(LocalDate date) {
         Connection c = null;
