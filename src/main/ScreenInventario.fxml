@@ -23,7 +23,9 @@
                   <Label layoutX="157.0" layoutY="68.0" prefHeight="15.0" prefWidth="79.0" text="CANTIDAD" />
                   <Label layoutX="28.0" layoutY="68.0" prefHeight="0.0" prefWidth="58.0" text="CODIGO" />
                   <Label layoutX="157.0" layoutY="11.0" prefHeight="0.0" prefWidth="58.0" text="PRECIO" />
-               </children></AnchorPane>
+                  <Label fx:id="lRegLab" layoutX="275.0" layoutY="90.0" text="ERROR LABEL" textFill="RED" />
+               </children>
+            </AnchorPane>
         </content>
       </TitledPane>
       <TitledPane animated="false" collapsible="false" layoutX="19.0" layoutY="201.0" prefHeight="147.0" prefWidth="602.0" text="Editar Producto">
@@ -41,6 +43,7 @@
                   <Label layoutX="28.0" layoutY="68.0" prefHeight="0.0" prefWidth="58.0" text="NOMBRE" />
                   <Label layoutX="155.0" layoutY="68.0" prefHeight="0.0" prefWidth="58.0" text="PRECIO" />
                   <Button layoutX="499.0" layoutY="85.0" mnemonicParsing="false" onAction="#bBorrar" prefHeight="25.0" prefWidth="87.0" text="BORRAR" />
+                  <Label fx:id="lEdtLab" layoutX="266.0" layoutY="38.0" text="ERROR LABEL" textFill="RED" />
                </children>
             </AnchorPane>
          </content>
