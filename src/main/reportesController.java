@@ -24,10 +24,15 @@ import database.DbCapos;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class reportesController extends ControlledScreen implements Initializable {
@@ -39,6 +44,22 @@ public class reportesController extends ControlledScreen implements Initializabl
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        XYChart.Series series = new XYChart.Series();
+        series.setName("Ventas del Mes");
+        //populating the series with data
+        LocalDate date = LocalDate.now();
+        date = date.withDayOfMonth(1);
+        int mSize = date.lengthOfMonth();
+        LocalDate stop = date.withDayOfMonth(mSize);
+        LocalDate cache = date;
+        for(int x=0; x<=date.lengthOfMonth(); x++) {
+            cache = cache.plusDays(1);
+            series.getData().add(new XYChart.Data(x, DbCapos.mesVentas(cache)));
+        }
+
+        lChart.getData().add(series);
+        System.out.println(date);
+        System.out.println(stop);
     }
 
     public void setScreenParent(ScreensController screenParent){
@@ -51,6 +72,13 @@ public class reportesController extends ControlledScreen implements Initializabl
     private TextField lDinero;
     @FXML
     private DatePicker dFecha;
+    @FXML
+    private NumberAxis xAxis;
+    @FXML
+    private NumberAxis yAxis;
+    @FXML
+    private LineChart<Number, Number> lChart;
+
 
     @FXML
     private void goToLogin(ActionEvent event){
@@ -64,10 +92,11 @@ public class reportesController extends ControlledScreen implements Initializabl
     }
     @FXML
     private void actualizar(ActionEvent event){
-        String[] valores = DbCapos.selectVentas();
-        lVenta.setText(valores[0]);
-        lDinero.setText(valores[1]);
-        System.out.println(dFecha.getValue());
+        if(!(dFecha.getValue()==null)) {
+            String[] valores = DbCapos.selectVentas(dFecha.getValue());
+            lVenta.setText(valores[0]);
+            lDinero.setText(valores[1]);
+        }
 
     }
 }
