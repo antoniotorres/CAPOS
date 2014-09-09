@@ -77,6 +77,10 @@ public class inventarioController extends ControlledScreen implements Initializa
     private void bBorrar(ActionEvent event){
         if(DbCapos.existeProducto(tEdtCod.getText())){
             DbCapos.deleteProducto(tEdtCod.getText());
+            tEdtCod.setText("");
+            tEdtNom.setText("");
+            tEdtCan.setText("");
+            tEdtPre.setText("");
         }
     }
     @FXML
@@ -93,8 +97,25 @@ public class inventarioController extends ControlledScreen implements Initializa
     }
     @FXML
     private void bRegistrar(ActionEvent event){
-        if(DbCapos.existeProducto(tRegCod.getText())==false){
-            DbCapos.insertProducto(tRegCod.getText(), tRegNom.getText(), Float.parseFloat(tRegPre.getText()), Integer.parseInt(tRegCan.getText()));
+        if(DbCapos.existeProducto(tRegCod.getText())==false && !tRegCod.getText().equals("Ya Existe!")){
+            try {
+                DbCapos.insertProducto(tRegCod.getText(), tRegNom.getText(), Float.parseFloat(tRegPre.getText()), Integer.parseInt(tRegCan.getText()));
+                tRegPre.setStyle("-fx-background-color: white;");
+                tRegCan.setStyle("-fx-background-color: white;");
+                tRegCod.setStyle("-fx-background-color: white;");
+                tRegCod.setText("");
+                tRegNom.setText("");
+                tRegCan.setText("");
+                tRegPre.setText("");
+            } catch (Exception e) {
+                System.out.println("Error, solo se pueden numeros.");
+                tRegPre.setStyle("-fx-background-color: red;");
+                tRegCan.setStyle("-fx-background-color: red;");
+
+            }
+        } else {
+            tRegCod.setText("Ya Existe!");
+            tRegCod.setStyle("-fx-background-color: red;");
         }
     }
     @FXML

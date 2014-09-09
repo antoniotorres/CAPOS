@@ -44,17 +44,17 @@ public class reportesController extends ControlledScreen implements Initializabl
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        XYChart.Series series = new XYChart.Series();
         series.setName("Ventas del Mes");
         //populating the series with data
         LocalDate date = LocalDate.now();
         date = date.withDayOfMonth(1);
         int mSize = date.lengthOfMonth();
         LocalDate stop = date.withDayOfMonth(mSize);
-        LocalDate cache = date;
+        LocalDate cache = LocalDate.now();
+        cache = date.withDayOfMonth(1);
         for(int x=0; x<=date.lengthOfMonth(); x++) {
+            series.getData().add(new XYChart.Data(x+1, DbCapos.mesVentas(cache)));
             cache = cache.plusDays(1);
-            series.getData().add(new XYChart.Data(x, DbCapos.mesVentas(cache)));
         }
 
         lChart.getData().add(series);
@@ -66,6 +66,7 @@ public class reportesController extends ControlledScreen implements Initializabl
         myController = screenParent;
     }
 
+    XYChart.Series series = new XYChart.Series();
     @FXML
     private TextField lVenta;
     @FXML
@@ -92,6 +93,22 @@ public class reportesController extends ControlledScreen implements Initializabl
     }
     @FXML
     private void actualizar(ActionEvent event){
+        lChart.getData().removeAll(series);
+        series.setName("Ventas del Mes");
+        //populating the series with data
+        LocalDate date = LocalDate.now();
+        date = date.withDayOfMonth(1);
+        int mSize = date.lengthOfMonth();
+        LocalDate stop = date.withDayOfMonth(mSize);
+        LocalDate cache = LocalDate.now();
+        cache = date.withDayOfMonth(1);
+        for(int x=0; x<=date.lengthOfMonth(); x++) {
+            series.getData().add(new XYChart.Data(x+1, DbCapos.mesVentas(cache)));
+            cache = cache.plusDays(1);
+        }
+
+        lChart.getData().add(series);
+
         if(!(dFecha.getValue()==null)) {
             String[] valores = DbCapos.selectVentas(dFecha.getValue());
             lVenta.setText(valores[0]);

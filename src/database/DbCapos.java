@@ -221,8 +221,9 @@ public class DbCapos {
             System.out.println("Opened database successfully");
 
             stmt = c.createStatement();
-            String sql = "DELETE FROM PRODUCTOS WHERE CODIGO='"+codigo+"';";
+            String sql = "DELETE FROM PRODUCTOS WHERE codigo='"+codigo+"';";
             stmt.executeUpdate(sql);
+            c.commit();
             stmt.close();
             c.close();
         } catch ( Exception e ) {
