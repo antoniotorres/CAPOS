@@ -47,13 +47,7 @@ public class inventarioController extends ControlledScreen implements Initializa
         colCantidad.setCellValueFactory( new PropertyValueFactory<lProducto, String>("cantidad"));
         lRegLab.setText("");
         lEdtLab.setText("");
-        int[] num = DbCapos.numProductos();
-        for (int x=0; x<num.length; x++) {
-            String[] valores = DbCapos.selectProduct(num[x]);
-            //System.out.println(valores[0]+valores[1]+valores[2]+valores[3]);
-            data.add(new lProducto(valores[0], valores[2], valores[1], valores[3]));
-        }
-        proTable.setItems(data);
+        clear();
     }
     public void clear(){
         data.removeAll(data);
@@ -142,11 +136,12 @@ public class inventarioController extends ControlledScreen implements Initializa
     }
     @FXML
     private void bBuscar(ActionEvent event){
+        clear();
         tEdtCod.setText(tEdtCod.getText().trim());
         if(!DbCapos.existeProducto(tEdtCod.getText())==false && !tEdtCod.getText().equals("Ya Existe!") && !tEdtCod.getText().equals("")){
             String[] valores = DbCapos.selectProduct(tEdtCod.getText());
             tEdtNom.setText(valores[0]);//Imprime el nombre en el textbox
-            tEdtPre.setText(valores[1]);//Imprime el precio en el textbox
+            tEdtPre.setText(valores[2]);//Imprime el precio en el textbox
             tEdtCan.setText(valores[3]);//Imprime la cantidad en el textbox
         }  else {
             lEdtLab.setText("No Existe o Error");
@@ -180,25 +175,31 @@ public class inventarioController extends ControlledScreen implements Initializa
         tRegNom.setText(tRegNom.getText().trim());
         tRegCan.setText(tRegCan.getText().trim());
         tRegPre.setText(tRegPre.getText().trim());
-        if(DbCapos.existeProducto(tRegCod.getText())==false && !tRegCod.getText().equals("Ya Existe!") && !tRegCod.getText().equals("")){
-            try {
-                DbCapos.insertProducto(tRegCod.getText(), tRegNom.getText(), Float.parseFloat(tRegPre.getText()), Integer.parseInt(tRegCan.getText()));
-                tRegPre.setStyle("-fx-background-color: white;");
-                tRegCan.setStyle("-fx-background-color: white;");
-                tRegCod.setText("");
-                tRegNom.setText("");
-                tRegCan.setText("");
-                tRegPre.setText("");
-                lRegLab.setText("");
-                clear();
-            } catch (Exception e) {
-                System.out.println("Error, solo se pueden numeros.");
-                tRegPre.setStyle("-fx-background-color: red;");
-                tRegCan.setStyle("-fx-background-color: red;");
-
+        try {
+            if (tRegCod.getText().length()>10 || tRegNom.getText().length()>10){
+                throw new Exception("Tamano de Caracteres");
             }
-        } else {
-            lRegLab.setText("Ya Existe o Error");
+            if(DbCapos.existeProducto(tRegCod.getText())==false && !tRegCod.getText().equals("Ya Existe!") && !tRegCod.getText().equals("")){
+                    DbCapos.insertProducto(tRegCod.getText(), tRegNom.getText(), Float.parseFloat(tRegPre.getText()), Integer.parseInt(tRegCan.getText()));
+                    tRegPre.setStyle("-fx-background-color: white;");
+                    tRegCan.setStyle("-fx-background-color: white;");
+                    tRegCod.setText("");
+                    tRegNom.setText("");
+                    tRegCan.setText("");
+                    tRegPre.setText("");
+                    lRegLab.setText("");
+                    clear();
+            } else {
+                lRegLab.setText("Ya Existe o Error");
+            }
+        } catch (NumberFormatException e){
+            System.out.println("Error, solo se pueden numeros. Codigo y nombre solo puede hasta 10 caracteres.");
+            lRegLab.setText("Error: Numberos Invalidos");
+            tRegPre.setStyle("-fx-background-color: red;");
+            tRegCan.setStyle("-fx-background-color: red;");
+        } catch (Exception e) {
+            System.out.println("Error, solo se pueden numeros. Codigo y nombre solo puede hasta 10 caracteres.");
+            lRegLab.setText("Error: Codigo y/o Nombre Tamano de Caracteres Invalido");
         }
     }
 }

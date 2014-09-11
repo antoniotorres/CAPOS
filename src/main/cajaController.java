@@ -179,33 +179,33 @@ public class cajaController extends ControlledScreen implements Initializable {
             // Pasa la informacion del ArrayLista a un arreglo y le agregua espacios si no completa
             for(int x=0; x < codigo.length; x++ ){
                 codigo[x]=data.get(x).getCodigo();
-                if (codigo[x].length()<20){
-                    for (int y=codigo[x].length(); y<20;y++)
+                if (codigo[x].length()<10){
+                    for (int y=codigo[x].length(); y<10;y++)
                         codigo[x]=codigo[x] + " ";
                 } else {
-                    codigo[x]=codigo[x].substring(0,20);
+                    codigo[x]=codigo[x].substring(0,10);
                 }
 
             }
             // Pasa la informacion del ArrayLista a un arreglo y le agregua espacios si no completa
             for(int x=0; x < nombre.length; x++ ){
                 nombre[x]=data.get(x).getNombre();
-                if (nombre[x].length()<20){
-                    for (int y=nombre[x].length(); y<20;y++)
+                if (nombre[x].length()<10){
+                    for (int y=nombre[x].length(); y<10;y++)
                         nombre[x]=nombre[x] + " ";
                 } else {
-                    nombre[x]=nombre[x].substring(0,20);
+                    nombre[x]=nombre[x].substring(0,10);
                 }
 
             }
             // Pasa la informacion del ArrayLista a un arreglo y le agregua espacios si no completa
             for(int x=0; x < precio.length; x++ ){
                 precio[x]=data.get(x).getPrecio();
-                if (precio[x].length()<20){
-                    for (int y=precio[x].length(); y<20;y++)
+                if (precio[x].length()<10){
+                    for (int y=precio[x].length(); y<10;y++)
                         precio[x]=precio[x] + " ";
                 } else {
-                    precio[x]=precio[x].substring(0,20);
+                    precio[x]=precio[x].substring(0,10);
                 }
 
             }

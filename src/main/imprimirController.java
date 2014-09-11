@@ -24,8 +24,14 @@ import database.DbCapos;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.print.PrinterJob;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
@@ -44,6 +50,10 @@ public class imprimirController extends ControlledScreen implements Initializabl
         // TODO
         lCambio.setText("");
         bRegresar.setVisible(false);
+        text.setFont(new Font(10));
+        text.setTextAlignment(TextAlignment.CENTER);
+        text.setText("\nX5 Jeans\nCentro de Monterrey 64000\n\n");
+        text.setText(text.getText()+"Codigo\tPrecio\tPrecio\n");
 
     }
 
@@ -53,6 +63,7 @@ public class imprimirController extends ControlledScreen implements Initializabl
     private Button bRegresar;
     @FXML
     private Button bImprimir;
+    Text text = new Text();
 
     public void setScreenParent(ScreensController screenParent){
         myController = screenParent;
@@ -64,6 +75,7 @@ public class imprimirController extends ControlledScreen implements Initializabl
         System.out.println("Go to Caja Screen");
         bRegresar.setVisible(false);
         bImprimir.setVisible(true);
+        bImprimir.setDisable(false);
         lCambio.setText("");
     }
     @FXML
@@ -73,6 +85,8 @@ public class imprimirController extends ControlledScreen implements Initializabl
             bRegresar.setVisible(true);
             bImprimir.setVisible(false);
             update();
+            print();
+            bImprimir.setDisable(true);
         }
     }
     public void update() {
@@ -83,7 +97,7 @@ public class imprimirController extends ControlledScreen implements Initializabl
             //inicializando variables para leer los datos de teclado
             String op="";
             int i;
-            int tamRegistro=120;
+            int tamRegistro=60;
             Long l = miArchivo.length();
             int cantRegistros=(((Integer.valueOf(l.intValue()))-16)/tamRegistro);
             miArchivo.seek(0);
@@ -98,17 +112,18 @@ public class imprimirController extends ControlledScreen implements Initializabl
             // Pasa la informacion del ArrayLista a un arreglo y le agregua espacios si no completa
             for(int x=0; x < cantRegistros; x++ ){
                 codigo[x]="";
-                for (int j=0; j<20;j++)
+                for (int j=0; j<10;j++)
                     codigo[x]= codigo[x] + miArchivo.readChar();
                 nombre[x]="";
-                for (int j=0; j<20;j++)
+                for (int j=0; j<10;j++)
                     nombre[x]= nombre[x] + miArchivo.readChar();
                 precio[x]="";
-                for (int j=0; j<20;j++)
+                for (int j=0; j<10;j++)
                     precio[x]= precio[x] + miArchivo.readChar();
             }
             for(int x=0; x < codigo.length; x++ ){
                 System.out.println (nombre[x]+" "+codigo[x]+" "+precio[x]);
+                text.setText(text.getText()+nombre[x]+"\t"+codigo[x]+"\t"+precio[x]+"\n");
             }
 
             System.out.println ("Venta registrada");
@@ -118,6 +133,12 @@ public class imprimirController extends ControlledScreen implements Initializabl
 
 
             lCambio.setText("$"+Float.toString(efectivo-total));
+            text.setText(text.getText()+"\n\nSubtotal: $"+subtotal+"\n");
+            text.setText(text.getText()+"IVA: $"+tax+"\n");
+            text.setText(text.getText()+"Total: $"+total+"\n");
+            text.setText(text.getText()+"Efectivo: $"+efectivo+"\n");
+            text.setText(text.getText()+"Cambio: $"+Float.toString(efectivo-total)+"\n");
+            text.setText(text.getText()+"Gracias por comprar en X5 Jeans");
 
 
             DbCapos.insertVenta("Efectivo", total);
@@ -132,5 +153,17 @@ public class imprimirController extends ControlledScreen implements Initializabl
             file.delete();
         }
 
+    }
+    public void print (){
+        Stage stage=(Stage) lCambio.getScene().getWindow();
+        Node node = text;
+        PrinterJob job = PrinterJob.createPrinterJob();
+        //job.showPageSetupDialog(stage);
+        if (job != null) {
+            boolean success = job.printPage(node);
+            if (success) {
+                job.endJob();
+            }
+        }
     }
 }
