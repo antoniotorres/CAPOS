@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_capos" default="compile.module.capos">
+  <dirname property="module.capos.basedir" file="${ant.file.module_capos}"/>
+  
+  <property name="module.jdk.home.capos" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.capos" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.capos" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.capos" value="-encoding UTF-8 -source 1.7 ${compiler.args}"/>
+  
+  <property name="capos.output.dir" value="${module.capos.basedir}/out/production/CAPOS"/>
+  <property name="capos.testoutput.dir" value="${module.capos.basedir}/out/test/CAPOS"/>
+  
+  <path id="capos.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="capos.module.production.classpath">
+    <path refid="${module.jdk.classpath.capos}"/>
+  </path>
+  
+  <path id="capos.runtime.production.module.classpath">
+    <pathelement location="${capos.output.dir}"/>
+    <path refid="library.sqlite-jdbc-3.7.2.classpath"/>
+  </path>
+  
+  <path id="capos.module.classpath">
+    <path refid="${module.jdk.classpath.capos}"/>
+    <pathelement location="${capos.output.dir}"/>
+  </path>
+  
+  <path id="capos.runtime.module.classpath">
+    <pathelement location="${capos.testoutput.dir}"/>
+    <pathelement location="${capos.output.dir}"/>
+    <path refid="library.sqlite-jdbc-3.7.2.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.capos">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.capos">
+    <patternset refid="excluded.from.module.capos"/>
+  </patternset>
+  
+  <path id="capos.module.sourcepath">
+    <dirset dir="${module.capos.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.capos" depends="compile.module.capos.production,compile.module.capos.tests" description="Compile module CAPOS"/>
+  
+  <target name="compile.module.capos.production" depends="register.custom.compilers" description="Compile module CAPOS; production classes">
+    <mkdir dir="${capos.output.dir}"/>
+    <javac2 destdir="${capos.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.capos}/javac">
+      <compilerarg line="${compiler.args.capos}"/>
+      <bootclasspath refid="capos.module.bootclasspath"/>
+      <classpath refid="capos.module.production.classpath"/>
+      <src refid="capos.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.capos"/>
+    </javac2>
+    
+    <copy todir="${capos.output.dir}">
+      <fileset dir="${module.capos.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.capos.tests" depends="register.custom.compilers,compile.module.capos.production" description="compile module CAPOS; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.capos" description="cleanup module">
+    <delete dir="${capos.output.dir}"/>
+    <delete dir="${capos.testoutput.dir}"/>
+  </target>
+</project>

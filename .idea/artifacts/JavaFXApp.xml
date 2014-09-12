@@ -7,7 +7,7 @@
       </options>
     </properties>
     <root id="root">
-      <element id="archive" name="JavaFXApp.jar">
+      <element id="archive" name="CAPOS.jar">
         <element id="module-output" name="CAPOS" />
         <element id="extracted-dir" path="$PROJECT_DIR$/sqlite-jdbc-3.7.2.jar" path-in-jar="/" />
       </element>
