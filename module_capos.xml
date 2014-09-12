@@ -53,15 +53,15 @@
   
   <target name="compile.module.capos" depends="compile.module.capos.production,compile.module.capos.tests" description="Compile module CAPOS"/>
   
-  <target name="compile.module.capos.production" depends="register.custom.compilers" description="Compile module CAPOS; production classes">
+  <target name="compile.module.capos.production" description="Compile module CAPOS; production classes">
     <mkdir dir="${capos.output.dir}"/>
-    <javac2 destdir="${capos.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.capos}/javac">
+    <javac destdir="${capos.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.capos}/javac">
       <compilerarg line="${compiler.args.capos}"/>
       <bootclasspath refid="capos.module.bootclasspath"/>
       <classpath refid="capos.module.production.classpath"/>
       <src refid="capos.module.sourcepath"/>
       <patternset refid="excluded.from.compilation.capos"/>
-    </javac2>
+    </javac>
     
     <copy todir="${capos.output.dir}">
       <fileset dir="${module.capos.basedir}/src">
@@ -71,7 +71,7 @@
     </copy>
   </target>
   
-  <target name="compile.module.capos.tests" depends="register.custom.compilers,compile.module.capos.production" description="compile module CAPOS; test classes" unless="skip.tests"/>
+  <target name="compile.module.capos.tests" depends="compile.module.capos.production" description="compile module CAPOS; test classes" unless="skip.tests"/>
   
   <target name="clean.module.capos" description="cleanup module">
     <delete dir="${capos.output.dir}"/>
