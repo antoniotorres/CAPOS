@@ -45,12 +45,11 @@ public class Main extends Application {
     public static String screenInventario = "inventario";
     public static String getScreenInventario_FXML = "ScreenInventario.fxml";
 
-
+    PropCapos dprop = new PropCapos();
+    DbCapos database = new DbCapos();
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-
-        initApp();
 
         ScreensController mainContainer = new ScreensController();
         mainContainer.loadScreen(Main.screenMain, Main.screenMain_FXML);
@@ -68,7 +67,7 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.setResizable(false);
-        primaryStage.setTitle("CAPOS");
+        primaryStage.setTitle("CAPOS - "+dprop.getStore_name());
         primaryStage.getIcons().add(new Image("/res/icons/logo/logo-64x64.png"));
     }
 
@@ -77,8 +76,4 @@ public class Main extends Application {
         launch(args);
     }
     //Esta parte del codigo inicia los archivos que estan fuera del programa.
-    public static void initApp() {
-        PropCapos dprop = new PropCapos();
-        DbCapos database = new DbCapos();
-    }
 }

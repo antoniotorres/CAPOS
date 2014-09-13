@@ -24,9 +24,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Properties;
 import java.util.ResourceBundle;
 import database.DbCapos;
 import javafx.print.PrinterJob;
@@ -54,7 +59,9 @@ public class loginController extends ControlledScreen implements Initializable {
         // TODO
         //Esta parte del codigo muestra el logo de la empresa
         PropCapos prop = new PropCapos();
-            Image image = new Image("file:"+prop.getLogo(), 256, 100, false, false);
+        File jarPath=new File(DbCapos.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+        String propertiesPath=jarPath.getParentFile().getAbsolutePath();
+            Image image = new Image("file:"+propertiesPath+"/"+prop.getStore_logo(), 256, 100, false, false);
             imgLogoCom.setImage(image);
     }
 
@@ -75,9 +82,7 @@ public class loginController extends ControlledScreen implements Initializable {
     private void loginButton(ActionEvent event){
 
         //myController.setScreen(Main.screen2ID);
-        System.out.println("loginButton");
-        if (DbCapos.selectLogin(username.getText(), password.getText())) {
-            System.out.println("Username and Password Match");
+        if (DbCapos.selectLogin(username.getText(), hashPassword(password.getText()))) {
             //Este codigo va a cambiar la pantalla a screenMain
             myController.setScreen(Main.screenMain);
             lError.setText("");
@@ -87,5 +92,27 @@ public class loginController extends ControlledScreen implements Initializable {
             System.out.println("Error: Maybe Username or Password wrong");
             lError.setText("Error: Usuario o Contrasena Mal");
         }
+    }
+    //Encrypts User Password
+    private String hashPassword(String pwd){
+        String digest = null;
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] hash = md.digest(pwd.getBytes("UTF-8"));
+
+            //converting byte array to Hexadecimal String
+            StringBuilder sb = new StringBuilder(2*hash.length);
+            for(byte b : hash){
+                sb.append(String.format("%02x", b&0xff));
+            }
+
+            digest = sb.toString();
+
+        } catch (UnsupportedEncodingException ex) {
+
+        } catch (NoSuchAlgorithmException ex) {
+
+        }
+        return digest;
     }
 }

@@ -20,8 +20,11 @@
 
 package main;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import database.DbCapos;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -40,8 +43,11 @@ public class mainController extends ControlledScreen implements Initializable {
         // TODO
         //Esta parte del codigo muestra el logo de la empresa
         PropCapos prop = new PropCapos();
-        Image image = new Image("file:"+prop.getLogo(), 128, 50, false, false);
+        File jarPath=new File(DbCapos.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+        String propertiesPath=jarPath.getParentFile().getAbsolutePath();
+        Image image = new Image("file:"+propertiesPath+"/"+prop.getStore_logo(), 128, 50, false, false);
         imgLogoCom.setImage(image);
+
     }
 
     public void setScreenParent(ScreensController screenParent){

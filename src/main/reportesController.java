@@ -58,8 +58,6 @@ public class reportesController extends ControlledScreen implements Initializabl
         }
 
         lChart.getData().add(series);
-        System.out.println(date);
-        System.out.println(stop);
     }
 
     public void setScreenParent(ScreensController screenParent){
