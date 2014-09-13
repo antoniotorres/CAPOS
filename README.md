@@ -1,4 +1,4 @@
-CAPOS
+CAPOS [![Build Status](https://travis-ci.org/antoniotorres/CAPOS.svg?branch=master)](https://travis-ci.org/antoniotorres/CAPOS)
 =====
 
 With software built using the world's best IDE, **IntelliJ IDEA**, made by <img src="https://www.jetbrains.com/img/newdesign/jb_logo_color.gif">
