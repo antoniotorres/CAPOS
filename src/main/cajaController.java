@@ -41,6 +41,7 @@ import database.DbCapos;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
+import properties.PropCapos;
 
 public class cajaController extends ControlledScreen implements Initializable {
 
@@ -134,6 +135,7 @@ public class cajaController extends ControlledScreen implements Initializable {
             addVenta(Float.parseFloat(valores[2]));
             cajaTable.setItems(data);
             tSearch.setText("");
+            tSearch.requestFocus();
         }
     }
     @FXML
@@ -164,6 +166,7 @@ public class cajaController extends ControlledScreen implements Initializable {
                 cajaTable.setItems(data);
             }
             tSearch.setText("");
+            tSearch.requestFocus();
         }
     }
     @FXML
@@ -196,8 +199,15 @@ public class cajaController extends ControlledScreen implements Initializable {
     //Este metodo  agregua los precios al subtotal, Impuesto y Total
     public void addVenta(float var){
         this.vSubtotal = this.vSubtotal + var;
-        this.lSubtotal.setText("$ "+String.valueOf(this.vSubtotal));
+        this.lSubtotal.setText("$ " + String.valueOf(this.vSubtotal));
+        PropCapos prop = new PropCapos();
+        try {
+            this.vTax = this.vSubtotal*prop.getTax();
+        } catch (NumberFormatException e){
+            System.out.println("error");
+        }
         this.vTotal = this.vSubtotal + this.vTax;
+        this.lTax.setText("$ "+this.vTax);
         this.lTotal.setText("$ "+String.valueOf(this.vTotal));
     }
     public void clear (){
@@ -226,9 +236,11 @@ public class cajaController extends ControlledScreen implements Initializable {
             Float total = vTotal;
             Float efectivo = Float.parseFloat(tEfectivo.getText());
 
-            String[] nombre = new String[data.size()];
-            String[] codigo = new String[data.size()];
-            String[] precio = new String[data.size()];
+            int arraySize = data.size();
+            String[] nombre = new String[arraySize];
+            String[] codigo = new String[arraySize];
+            String[] precio = new String[arraySize];
+            int[] cantidad = new int[arraySize];
 
             // Pasa la informacion del ArrayLista a un arreglo y le agregua espacios si no completa
             for(int x=0; x < codigo.length; x++ ){
@@ -263,9 +275,13 @@ public class cajaController extends ControlledScreen implements Initializable {
                 }
 
             }
+            // Pasa la informacion del ArrayLista a un arreglo y le agregua espacios si no completa
+            for(int x=0; x < cantidad.length; x++ ){
+                cantidad[x]=data.get(x).getCantidad();
+            }
 
             for(int x=0; x < codigo.length; x++ ){
-                System.out.println (nombre[x]+" "+codigo[x]+" "+precio[x]);
+                System.out.println (nombre[x]+" "+codigo[x]+" "+precio[x]+" "+cantidad[x]);
             }
             //grabando en el archivo
             if (miArchivo.length()!=0)
@@ -279,6 +295,7 @@ public class cajaController extends ControlledScreen implements Initializable {
                 miArchivo.writeChars(codigo[x]);
                 miArchivo.writeChars(nombre[x]);
                 miArchivo.writeChars(precio[x]);
+                miArchivo.writeInt(cantidad[x]);
             }
 
 

@@ -10,21 +10,6 @@
 
 <AnchorPane id="AnchorPane" minHeight="480.0" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.cajaController">
    <children>
-      <GridPane hgap="10.0" layoutX="417.0" layoutY="14.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="63.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="63.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="63.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Button mnemonicParsing="false" onAction="#goToLogin" text="Logout" GridPane.columnIndex="2" />
-            <Button mnemonicParsing="false" onAction="#goToCancel" text="Cancel" />
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToMain" text="Main" GridPane.columnIndex="1" />
-         </children>
-      </GridPane>
       <TextField fx:id="tSearch" layoutX="14.0" layoutY="60.0" onKeyPressed="#handleEnterPressed" />
       <Button layoutX="198.0" layoutY="60.0" mnemonicParsing="false" onAction="#addProduct" text="ENTER" />
       <TableView fx:id="cajaTable" focusTraversable="false" layoutX="14.0" layoutY="113.0" prefHeight="357.0" prefWidth="455.0">
@@ -73,5 +58,20 @@
         </content>
       </TitledPane>
       <Button layoutX="502.0" layoutY="416.0" mnemonicParsing="false" onAction="#endVenta" prefHeight="50.0" prefWidth="97.0" text="VENTA" />
+      <GridPane hgap="10.0" layoutX="417.0" layoutY="14.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="63.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="63.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="63.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button mnemonicParsing="false" onAction="#goToLogin" text="Logout" GridPane.columnIndex="2" />
+            <Button mnemonicParsing="false" onAction="#goToCancel" text="Cancel" />
+            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToMain" text="Main" GridPane.columnIndex="1" />
+         </children>
+      </GridPane>
    </children>
 </AnchorPane>

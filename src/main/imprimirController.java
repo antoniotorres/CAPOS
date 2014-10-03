@@ -32,6 +32,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import properties.PropCapos;
 
 import java.io.File;
 import java.io.IOException;
@@ -52,8 +53,9 @@ public class imprimirController extends ControlledScreen implements Initializabl
         bRegresar.setVisible(false);
         text.setFont(new Font(10));
         text.setTextAlignment(TextAlignment.CENTER);
-        text.setText("\nX5 Jeans\nCentro de Monterrey 64000\n\n");
-        text.setText(text.getText()+"Codigo\tPrecio\tPrecio\n");
+        PropCapos prop = new PropCapos();
+        text.setText("\n"+prop.getStore_name()+"\n"+prop.getStore_address()+"\n\n");
+        text.setText(text.getText()+"Codigo\tPrecio\tPrecio\tCantidad \n");
 
     }
 
@@ -97,7 +99,7 @@ public class imprimirController extends ControlledScreen implements Initializabl
             //inicializando variables para leer los datos de teclado
             String op="";
             int i;
-            int tamRegistro=60;
+            int tamRegistro=64;
             Long l = miArchivo.length();
             int cantRegistros=(((Integer.valueOf(l.intValue()))-16)/tamRegistro);
             miArchivo.seek(0);
@@ -109,6 +111,7 @@ public class imprimirController extends ControlledScreen implements Initializabl
             String[] nombre = new String[cantRegistros];
             String[] codigo = new String[cantRegistros];
             String[] precio = new String[cantRegistros];
+            int[] cantidad = new int[cantRegistros];
             // Pasa la informacion del ArrayLista a un arreglo y le agregua espacios si no completa
             for(int x=0; x < cantRegistros; x++ ){
                 codigo[x]="";
@@ -120,17 +123,20 @@ public class imprimirController extends ControlledScreen implements Initializabl
                 precio[x]="";
                 for (int j=0; j<10;j++)
                     precio[x]= precio[x] + miArchivo.readChar();
+
+                cantidad[x]=miArchivo.readInt();
             }
+            System.out.println (cantRegistros +" ");
             for(int x=0; x < codigo.length; x++ ){
                 System.out.println (nombre[x]+" "+codigo[x]+" "+precio[x]);
-                text.setText(text.getText()+nombre[x]+"\t"+codigo[x]+"\t"+precio[x]+"\n");
+                text.setText(text.getText()+nombre[x]+"\t"+codigo[x]+"\t"+precio[x]+"\t"+cantidad[x]+"\n");
             }
 
             System.out.println ("Venta registrada");
             miArchivo.close();  // cierra el archivo cuando ya no desea grabar mas
 
 
-
+            PropCapos prop = new PropCapos();
 
             lCambio.setText("$"+Float.toString(efectivo-total));
             text.setText(text.getText()+"\n\nSubtotal: $"+subtotal+"\n");
@@ -138,10 +144,12 @@ public class imprimirController extends ControlledScreen implements Initializabl
             text.setText(text.getText()+"Total: $"+total+"\n");
             text.setText(text.getText()+"Efectivo: $"+efectivo+"\n");
             text.setText(text.getText()+"Cambio: $"+Float.toString(efectivo-total)+"\n");
-            text.setText(text.getText()+"Gracias por comprar en X5 Jeans");
+            text.setText(text.getText()+prop.getTicket_message());
 
-
-            DbCapos.insertVenta("Efectivo", total);
+            for(int x=0; x < codigo.length; x++ ){
+                codigo[x]=codigo[x].trim();
+            }
+            DbCapos.insertVenta("Efectivo", total, codigo, cantidad);
 
 
 

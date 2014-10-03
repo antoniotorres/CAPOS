@@ -30,6 +30,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import properties.PropCapos;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -69,6 +70,8 @@ public class reportesController extends ControlledScreen implements Initializabl
     private TextField lVenta;
     @FXML
     private TextField lDinero;
+    @FXML
+    private TextField lTax;
     @FXML
     private DatePicker dFecha;
     @FXML
@@ -111,6 +114,9 @@ public class reportesController extends ControlledScreen implements Initializabl
             String[] valores = DbCapos.selectVentas(dFecha.getValue());
             lVenta.setText(valores[0]);
             lDinero.setText(valores[1]);
+            PropCapos prop = new PropCapos();
+            float temp = Float.parseFloat(valores[1]);
+            lTax.setText(String.valueOf(temp-(temp/(1+prop.getTax()))));
         }
 
     }

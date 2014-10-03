@@ -20,7 +20,7 @@ public class PropCapos {
     private String database_name;
     private String database_url;
     private String ticket_message;
-    private String tax;
+    private Float tax;
 
     public PropCapos() {
         checkFile();
@@ -94,7 +94,11 @@ public class PropCapos {
         store_address = prop.getProperty("store_address");
         store_phone = prop.getProperty("store_phone");
         ticket_message = prop.getProperty("ticket_message");
-        tax = prop.getProperty("tax");
+        try {
+            tax = Float.parseFloat(prop.getProperty("tax"));
+        } catch (NumberFormatException e){
+            System.out.println("Error");
+        }
     }
     public String getStore_logo(){
         return store_logo;
@@ -134,7 +138,7 @@ public class PropCapos {
         return ticket_message;
     }
 
-    public String getTax() {
+    public Float getTax() {
         return tax;
     }
 }

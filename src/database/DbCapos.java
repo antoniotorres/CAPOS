@@ -229,7 +229,7 @@ public class DbCapos {
         }
         System.out.println("Delete done successfully");
     }
-    public static void insertVenta(String tipo, Float cantidad) {
+    public static void insertVenta(String tipo, Float cantidad, String[] codigo, int[] inventario) {
         java.util.Date date= new java.util.Date();
         String time = DateFormat.getDateInstance().format(new Timestamp(date.getTime()));
         System.out.println(time);
@@ -262,6 +262,62 @@ public class DbCapos {
             System.exit(0);
         }
         System.out.println("Records created successfully");
+
+        int[] invNow = new int[inventario.length];
+
+        for (int x=0; x< invNow.length; x++){
+            invNow[x]= numInventario(codigo[x]);
+        }
+        for (int x=0; x<inventario.length; x++) {
+            try {
+                File jarPath = new File(DbCapos.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+                String propertiesPath = jarPath.getParentFile().getAbsolutePath();
+
+                Class.forName("org.sqlite.JDBC");
+                c = DriverManager.getConnection("jdbc:sqlite:" + propertiesPath + "/pos.db");
+                c.setAutoCommit(false);
+                System.out.println("Opened database successfully");
+
+                int var = invNow[x] - inventario[x];
+                stmt = c.createStatement();
+                String sql = "UPDATE PRODUCTOS set CANTIDAD='" + var + "' where CODIGO='" + codigo[x]+"';";
+                stmt.executeUpdate(sql);
+
+                stmt.close();
+                c.commit();
+                c.close();
+            } catch (Exception e) {
+                System.err.println(e.getClass().getName() + ": " + e.getMessage());
+                System.exit(0);
+            }
+        }
+
+    }
+    public static int numInventario(String codigo) {
+        int valor = 0;
+        try {
+            File jarPath=new File(DbCapos.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+            String propertiesPath=jarPath.getParentFile().getAbsolutePath();
+
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:"+propertiesPath+"/pos.db");
+            c.setAutoCommit(false);
+
+            stmt = c.createStatement();
+            ResultSet rs = stmt.executeQuery( "SELECT * FROM PRODUCTOS where CODIGO='" + codigo+"';" );
+            int x =0;
+            while ( rs.next() ) {
+                x = rs.getInt("cantidad");
+            }
+            valor = x;
+            rs.close();
+            stmt.close();
+            c.close();
+        } catch ( Exception e ) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
+        }
+        return valor;
     }
     public static void updateProducto(String codigo, String nombre, float precio, int cant) {
         java.util.Date date= new java.util.Date();
@@ -288,7 +344,7 @@ public class DbCapos {
             System.exit(0);
         }
         System.out.println("Records created successfully");
-        }
+    }
     public static String[] selectVentas(LocalDate date) {
         String[] valor = new String[0];
         try {
