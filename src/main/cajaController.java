@@ -38,6 +38,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import database.DbCapos;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 
 public class cajaController extends ControlledScreen implements Initializable {
@@ -55,6 +57,7 @@ public class cajaController extends ControlledScreen implements Initializable {
         colNombre.setCellValueFactory( new PropertyValueFactory<Lista, String>("nombre"));
         colPrecio.setCellValueFactory( new PropertyValueFactory<Lista, Float>("precio"));
         colCodigo.setCellValueFactory( new PropertyValueFactory<Lista, String>("codigo"));
+        colCantidad.setCellValueFactory( new PropertyValueFactory<Lista, String>("cantidad"));
     }
     @FXML
     private Label lSubtotal;
@@ -70,6 +73,8 @@ public class cajaController extends ControlledScreen implements Initializable {
     private TableColumn colCodigo;
     @FXML
     private TableColumn colPrecio;
+    @FXML
+    private TableColumn colCantidad;
     @FXML
     private TextField tSearch;
     @FXML
@@ -107,9 +112,58 @@ public class cajaController extends ControlledScreen implements Initializable {
     private void addProduct(ActionEvent event){
         if (DbCapos.existeProducto(tSearch.getText())==true) {
             String[] valores = DbCapos.selectProduct(tSearch.getText());
-            data.add(new Lista(valores[0], valores[1], valores[2]));
+            System.out.println(data.size());
+            boolean found=false;
+            for (int x=0; x< data.size(); x++) {
+                Lista v = data.get(x);
+                System.out.println(v.getCodigo());
+                System.out.println(v.getCantidad());
+                System.out.println(valores[1]);
+                System.out.println(data.size());
+                if (valores[1].equals(v.getCodigo())) {
+                    int newc = v.getCantidad();
+                    v.setCantidad(newc+1);
+
+                    data.set(x, v);
+                    found = true;
+                    break;
+                }
+            }
+            if (found!=true)
+                data.add(new Lista(valores[0], valores[1], valores[2],1));
             addVenta(Float.parseFloat(valores[2]));
             cajaTable.setItems(data);
+            tSearch.setText("");
+        }
+    }
+    @FXML
+    public void handleEnterPressed(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            if (DbCapos.existeProducto(tSearch.getText())==true) {
+                String[] valores = DbCapos.selectProduct(tSearch.getText());
+                System.out.println(data.size());
+                boolean found=false;
+                for (int x=0; x< data.size(); x++) {
+                    Lista v = data.get(x);
+                    System.out.println(v.getCodigo());
+                    System.out.println(v.getCantidad());
+                    System.out.println(valores[1]);
+                    System.out.println(data.size());
+                    if (valores[1].equals(v.getCodigo())) {
+                        int newc = v.getCantidad();
+                        v.setCantidad(newc+1);
+
+                        data.set(x, v);
+                        found = true;
+                        break;
+                    }
+                }
+                if (found!=true)
+                    data.add(new Lista(valores[0], valores[1], valores[2],1));
+                addVenta(Float.parseFloat(valores[2]));
+                cajaTable.setItems(data);
+            }
+            tSearch.setText("");
         }
     }
     @FXML

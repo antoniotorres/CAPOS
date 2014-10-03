@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" minHeight="480.0" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.imprimirController">
+   <children>
+      <Button fx:id="bRegresar" layoutX="218.0" layoutY="276.0" mnemonicParsing="false" onAction="#goToCaja" prefHeight="67.0" prefWidth="204.0" text="REGRESAR" />
+      <Label fx:id="lCambio" layoutX="257.0" layoutY="189.0" prefHeight="60.0" prefWidth="127.0" text="\$0.00">
+         <font>
+            <Font size="32.0" />
+         </font>
+      </Label>
+      <Label layoutX="230.0" layoutY="154.0" text="Cambio:" />
+      <Button fx:id="bImprimir" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#imprimir" prefHeight="67.0" prefWidth="121.0" text="Imprimir" />
+   </children>
+</AnchorPane>
