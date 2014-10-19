@@ -73,6 +73,11 @@ public class mainController extends ControlledScreen implements Initializable {
         System.out.println("Go to Inv Screen");
     }
     @FXML
+    private void goToPromociones(ActionEvent event){
+        myController.setScreen(Main.screenPromociones);;
+        System.out.println("Go to Promociones Screen");
+    }
+    @FXML
     private void goToLogin(ActionEvent event){
         myController.setScreen(Main.screenLogin);;
         System.out.println("Go to Login Screen");

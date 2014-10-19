@@ -44,6 +44,8 @@ public class Main extends Application {
     public static String getScreenReportes_FXML = "ScreenReportes.fxml";
     public static String screenInventario = "inventario";
     public static String getScreenInventario_FXML = "ScreenInventario.fxml";
+    public static String screenPromociones = "promociones";
+    public static String getScreenPromociones_FXML = "ScreenPromociones.fxml";
 
     PropCapos dprop = new PropCapos();
     DbCapos database = new DbCapos();
@@ -58,6 +60,7 @@ public class Main extends Application {
         mainContainer.loadScreen(Main.screenImprimir, Main.getScreenImprimir_FXML);
         mainContainer.loadScreen(Main.screenReportes, Main.getScreenReportes_FXML);
         mainContainer.loadScreen(Main.screenInventario, Main.getScreenInventario_FXML);
+        mainContainer.loadScreen(Main.screenPromociones, Main.getScreenPromociones_FXML);
 
         mainContainer.setScreen(Main.screenLogin);
 

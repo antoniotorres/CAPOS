@@ -442,4 +442,32 @@ public class DbCapos {
         }
         return valor;
     }
+
+    public static String[] selectDescuento(int id) {
+        String[] valor = null;
+        try {
+            File jarPath=new File(DbCapos.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+            String propertiesPath=jarPath.getParentFile().getAbsolutePath();
+
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:"+propertiesPath+"/pos.db");
+            c.setAutoCommit(false);
+            stmt = c.createStatement();
+            ResultSet rs = stmt.executeQuery( "SELECT * FROM DESCUENTO WHERE ID='"+id+"';" );
+            while ( rs.next() ) {
+                String  dId = rs.getString("id");
+                String  codigo = rs.getString("codigo");
+                String  cantidad = rs.getString("cantidad");
+                String  descuento = rs.getString("descuento");
+                valor = new String[]{dId, codigo, cantidad, descuento};
+            }
+            rs.close();
+            stmt.close();
+            c.close();
+        } catch ( Exception e ) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
+        }
+        return valor;
+    }
 }
