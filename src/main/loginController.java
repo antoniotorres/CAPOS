@@ -82,7 +82,7 @@ public class loginController extends ControlledScreen implements Initializable {
     private void loginButton(ActionEvent event){
 
         //myController.setScreen(Main.screen2ID);
-        if (DbCapos.selectLogin(username.getText(), hashPassword(password.getText()))) {
+        if (DbCapos.login(username.getText(), password.getText())) {
             //Este codigo va a cambiar la pantalla a screenMain
             myController.setScreen(Main.screenMain);
             lError.setText("");
@@ -92,27 +92,5 @@ public class loginController extends ControlledScreen implements Initializable {
             System.out.println("Error: Maybe Username or Password wrong");
             lError.setText("Error: Usuario o Contrasena Mal");
         }
-    }
-    //Encrypts User Password
-    private String hashPassword(String pwd){
-        String digest = null;
-        try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            byte[] hash = md.digest(pwd.getBytes("UTF-8"));
-
-            //converting byte array to Hexadecimal String
-            StringBuilder sb = new StringBuilder(2*hash.length);
-            for(byte b : hash){
-                sb.append(String.format("%02x", b&0xff));
-            }
-
-            digest = sb.toString();
-
-        } catch (UnsupportedEncodingException ex) {
-
-        } catch (NoSuchAlgorithmException ex) {
-
-        }
-        return digest;
     }
 }

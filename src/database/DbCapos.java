@@ -5,97 +5,39 @@ import java.sql.*;
 import java.text.DateFormat;
 import java.time.LocalDate;
 
-/**
- * Created by user on 6/28/14.
+/*
+*    This file is part of CAPOS
+*
+*    This program is free software: you can redistribute it and/or modify
+*    it under the terms of the GNU General Public License as published by
+*    the Free Software Foundation, either version 3 of the License, or
+*    (at your option) any later version.
+*
+*    This program is distributed in the hope that it will be useful,
+*    but WITHOUT ANY WARRANTY; without even the implied warranty of
+*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*    GNU General Public License for more details.
+*
+*    You should have received a copy of the GNU General Public License
+*    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class DbCapos {
-    public DbCapos() {
-        checkDb();
-    }
-    public void checkDb() {
-        //create("users", "username           TEXT    NOT NULL, password            TEXT     NOT NULL)");
-        //insert("users", "USERNAME, PASSWORD", "'admin','admin'");
-        //if (selectLogin("admin", "admins")) {
-        //    System.out.println("TRUE");
-        //}else {
-        //   System.out.println("FALSe");
-        //}
 
-
-    }
+    //Initilize Variables
     private static Connection c = null;
     private static Statement stmt = null;
-    //Esta funcion crea una tabla dentro de la base de datos pos.db con los argumentos el nobmre de la tabla y los campos que van dentro de la tabla.
-    public void create(String table, String statement) {
-        try {
-            File jarPath=new File(DbCapos.class.getProtectionDomain().getCodeSource().getLocation().getPath());
-            String propertiesPath=jarPath.getParentFile().getAbsolutePath();
-            Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:"+propertiesPath+"/pos.db");
-            System.out.println("Opened database successfully");
-            stmt = c.createStatement();
-            String sql = "CREATE TABLE " + table + " " +
-                    "(ID INTEGER PRIMARY KEY     AUTOINCREMENT," +
-                    statement;
-            stmt.executeUpdate(sql);
-            stmt.close();
-            c.close();
-        } catch ( Exception e ) {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-            System.exit(0);
-        }
-        System.out.println("Table created successfully");
+
+    public DbCapos() {
+        //Makes the precheck of file
+        checkDB();
     }
-    public void insert(String table, String column, String statement) {
-        try {
-            File jarPath=new File(DbCapos.class.getProtectionDomain().getCodeSource().getLocation().getPath());
-            String propertiesPath=jarPath.getParentFile().getAbsolutePath();
-
-            Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:"+propertiesPath+"/pos.db");
-            c.setAutoCommit(false);
-            System.out.println("Opened database successfully");
-
-            stmt = c.createStatement();
-            String sql = "INSERT INTO " + table + " (" + column + ") VALUES ( " + statement + " );";
-            //String sql = "INSERT INTO " + table + " (NAME,AGE,ADDRESS,SALARY) " +
-            //        "VALUES ('Mark', 25, 'Rich-Mond ', 65000.00 );";
-            stmt.executeUpdate(sql);
-
-            stmt.close();
-            c.commit();
-            c.close();
-        } catch ( Exception e ) {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-            System.exit(0);
-        }
-        System.out.println("Records created successfully");
+    public void checkDB() {
+        CreateDB.create();
+        UsersDB.createDefaultUser();
     }
-    public static boolean selectLogin(String username, String password) {
-        boolean value=false;
-        try {
-            File jarPath=new File(DbCapos.class.getProtectionDomain().getCodeSource().getLocation().getPath());
-            String propertiesPath=jarPath.getParentFile().getAbsolutePath();
 
-            Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:"+propertiesPath+"/pos.db");
-            c.setAutoCommit(false);
-            stmt = c.createStatement();
-            ResultSet rs = stmt.executeQuery( "SELECT * FROM USERS WHERE USERNAME='"+username+"' AND PASSWORD='"+password+"';" );
-            while ( rs.next() ) {
-                int id = rs.getInt("id");
-                String  name = rs.getString("username");
-                String  address = rs.getString("password");
-                value=true;
-            }
-            rs.close();
-            stmt.close();
-            c.close();
-        } catch ( Exception e ) {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-            System.exit(0);
-        }
-        return value;
+    public static boolean login(String username, String password) {
+        return UsersDB.selectUser(username,password);
     }
     public static String[] selectProduct(String codigo) {
         String[] valor = new String[0];
@@ -166,7 +108,7 @@ public class DbCapos {
             stmt = c.createStatement();
             ResultSet rs = stmt.executeQuery( "SELECT * FROM PRODUCTOS WHERE CODIGO='"+codigo+"';" );
             while ( rs.next() ) {
-               value = true;
+                value = true;
             }
             rs.close();
             stmt.close();
