@@ -31,7 +31,7 @@ public class UsersDB {
     private static Statement stmt = null;
     private static File jarPath=new File(DbCapos.class.getProtectionDomain().getCodeSource().getLocation().getPath());
     private static String propertiesPath=jarPath.getParentFile().getAbsolutePath();
-    private static String dbFile = propertiesPath+"/postest.db";
+    private static String dbFile = propertiesPath+"/pos.db";
 
     public static void createDefaultUser(){
         if(checkUser("admin")!=true){

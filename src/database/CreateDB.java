@@ -27,7 +27,7 @@ public class CreateDB {
     private static Statement stmt = null;
     private static File jarPath=new File(DbCapos.class.getProtectionDomain().getCodeSource().getLocation().getPath());
     private static String propertiesPath=jarPath.getParentFile().getAbsolutePath();
-    private static String dbFile = propertiesPath+"/postest.db";
+    private static String dbFile = propertiesPath+"/pos.db";
 
     public static boolean lookFile(){
         File check = new File(dbFile);
@@ -37,6 +37,7 @@ public class CreateDB {
     public static void create(){
         if(lookFile()!=true) {
             //Creates the tables necessary for the program
+            System.out.println("pos.db doesn't exist. Creating new file.");
             newTable("productos", "(ID INTEGER PRIMARY KEY     AUTOINCREMENT, \"nombre\" TEXT NOT NULL,\n" +
                     "    \"codigo\" TEXT NOT NULL,\n" +
                     "    \"precio\" REAL NOT NULL,\n" +
@@ -48,6 +49,7 @@ public class CreateDB {
                     "    \"sale_time\" TEXT NOT NULL,\n" +
                     "    \"payment_type\" TEXT NOT NULL,\n" +
                     "    \"payment_amount\" REAL NOT NULL)");
+            System.out.println("Successfully created pos.db file.");
         }
     }
     public static boolean checkTables(){
@@ -60,7 +62,6 @@ public class CreateDB {
         try{
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
-            System.out.println("Opened database successfully");
             stmt = c.createStatement();
             String sql = "CREATE TABLE " + table + " " + statement;
             stmt.executeUpdate(sql);
@@ -70,7 +71,6 @@ public class CreateDB {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
             System.exit(0);
         }
-        System.out.println("Table created successfully");
     }
 
 }

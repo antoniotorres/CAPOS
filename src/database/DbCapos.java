@@ -5,6 +5,10 @@ import java.sql.*;
 import java.text.DateFormat;
 import java.time.LocalDate;
 
+import static database.CreateDB.*;
+import static database.UsersDB.createDefaultUser;
+import static database.UsersDB.selectUser;
+
 /*
 *    This file is part of CAPOS
 *
@@ -32,12 +36,12 @@ public class DbCapos {
         checkDB();
     }
     public void checkDB() {
-        CreateDB.create();
-        UsersDB.createDefaultUser();
+        create();
+        createDefaultUser();
     }
 
     public static boolean login(String username, String password) {
-        return UsersDB.selectUser(username,password);
+        return selectUser(username, password);
     }
     public static String[] selectProduct(String codigo) {
         String[] valor = new String[0];
