@@ -60,6 +60,8 @@ public class Main extends Application {
     public static String getScreenInventario_FXML = "ScreenInventario.fxml";
     public static String screenSettings = "settings";
     public static String getScreenSettings_FXML = "ScreenSettings.fxml";
+    public static String screenAbout = "about";
+    public static String getScreenAbout_FXML = "ScreenAbout.fxml";
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -72,6 +74,7 @@ public class Main extends Application {
         mainContainer.loadScreen(Main.screenReportes, Main.getScreenReportes_FXML);
         mainContainer.loadScreen(Main.screenInventario, Main.getScreenInventario_FXML);
         mainContainer.loadScreen(Main.screenSettings, Main.getScreenSettings_FXML);
+        mainContainer.loadScreen(Main.screenAbout, Main.getScreenAbout_FXML);
 
         mainContainer.setScreen(Main.screenLogin);
 

@@ -200,4 +200,48 @@ public class PropCapos {
     public void setLanguage(String language) {
         this.language = language;
     }
+
+    public void setStore_name(String store_name) {
+        this.store_name = store_name;
+    }
+
+    public void setStore_address(String store_address) {
+        this.store_address = store_address;
+    }
+
+    public void setStore_phone(String store_phone) {
+        this.store_phone = store_phone;
+    }
+
+    public void setStore_logo(String store_logo) {
+        this.store_logo = store_logo;
+    }
+
+    public void setDatabase_type(String database_type) {
+        this.database_type = database_type;
+    }
+
+    public void setDatabase_user(String database_user) {
+        this.database_user = database_user;
+    }
+
+    public void setDatabase_password(String database_password) {
+        this.database_password = database_password;
+    }
+
+    public void setDatabase_name(String database_name) {
+        this.database_name = database_name;
+    }
+
+    public void setDatabase_url(String database_url) {
+        this.database_url = database_url;
+    }
+
+    public void setTicket_message(String ticket_message) {
+        this.ticket_message = ticket_message;
+    }
+
+    public void setTax(Float tax) {
+        this.tax = tax;
+    }
 }

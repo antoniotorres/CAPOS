@@ -23,8 +23,6 @@
 
 <AnchorPane id="AnchorPane" minHeight="480.0" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.settingsController">
    <children>
-      <ChoiceBox fx:id="cbLanguage" layoutX="312.0" layoutY="71.0" prefWidth="150.0" />
-      <Label layoutX="165.0" layoutY="76.0" text="%settings.llanguage" />
       <Button layoutX="279.0" layoutY="433.0" mnemonicParsing="false" onAction="#update" text="%settings.bupdate" />
 
        <GridPane hgap="10.0" layoutX="417.0" layoutY="14.0">
@@ -40,5 +38,34 @@
                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToMain" text="%menu.bmain" />
            </children>
        </GridPane>
+      <GridPane layoutX="162.0" layoutY="125.0" prefWidth="300.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="%settings.llanguage" />
+            <ChoiceBox fx:id="cbLanguage" prefWidth="150.0" GridPane.columnIndex="1" />
+            <Label text="%settings.llanguage" />
+            <Label text="%settings.lstorename" GridPane.rowIndex="1" />
+            <Label text="%settings.lstorephone" GridPane.rowIndex="2" />
+            <TextField fx:id="tbstorename" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="tbstorephone" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="tbstoreaddress" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="tbtax" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label text="%settings.lstoreaddress" GridPane.rowIndex="3" />
+            <Label text="%settings.ltax" GridPane.rowIndex="4" />
+         </children>
+      </GridPane>
+      <Label layoutX="208.0" layoutY="391.0" text="%settings.lchanges" />
+      <TextArea fx:id="tbticketmsg" layoutX="241.0" layoutY="283.0" prefHeight="86.0" prefWidth="294.0" />
+      <Label layoutX="72.0" layoutY="290.0" text="%settings.lticketmsg" />
    </children>
 </AnchorPane>

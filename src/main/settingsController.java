@@ -56,6 +56,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import properties.PropCapos;
 
 import java.net.URL;
@@ -70,9 +72,23 @@ public class settingsController extends ControlledScreen implements Initializabl
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        PropCapos prop = new PropCapos();
         cbLanguage.setItems(FXCollections.observableArrayList(
                 "English (US)", "Espanol (Mexico)"));
-        cbLanguage.setValue("English (US)");
+
+        tbstorename.setText(prop.getStore_name());
+        tbstorephone.setText(prop.getStore_phone());
+        tbstoreaddress.setText(prop.getStore_address());
+        tbtax.setText(prop.getTax().toString());
+        tbticketmsg.setText(prop.getTicket_message());
+
+        String a = prop.getLanguage();
+        if (a.equals("en_US"))
+            cbLanguage.setValue("English (US)");
+        else if (a.equals("es_MX"))
+            cbLanguage.setValue("Espanol (Mexico)");
+        else
+            cbLanguage.setValue("English (US)");
     }
 
     public void setScreenParent(ScreensController screenParent){
@@ -81,6 +97,16 @@ public class settingsController extends ControlledScreen implements Initializabl
 
     @FXML
     ChoiceBox cbLanguage;
+    @FXML
+    TextField tbstorename;
+    @FXML
+    TextField tbstorephone;
+    @FXML
+    TextField tbstoreaddress;
+    @FXML
+    TextField tbtax;
+    @FXML
+    TextArea tbticketmsg;
 
     @FXML
     private void goToMain(ActionEvent event) {
@@ -104,6 +130,16 @@ public class settingsController extends ControlledScreen implements Initializabl
             b="es_MX";
 
         prop.setLanguage(b);
+        prop.setStore_name(tbstorename.getText());
+        prop.setStore_phone(tbstorephone.getText());
+        prop.setStore_address(tbstoreaddress.getText());
+        prop.setTicket_message(tbticketmsg.getText());
+        try {
+            prop.setTax(Float.parseFloat(tbtax.getText()));
+        } catch (NumberFormatException e){
+            System.out.println("Number Error");
+            prop.setTax(0.00f);
+        }
         prop.setData();
         System.out.println(prop.getLanguage());
 

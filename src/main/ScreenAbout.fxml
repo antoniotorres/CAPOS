@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<!--
+  ~ 2014
+  ~
+  ~     This program is free software: you can redistribute it and/or modify
+  ~     it under the terms of the GNU General Public License as published by
+  ~     the Free Software Foundation, either version 3 of the License, or
+  ~     (at your option) any later version.
+  ~
+  ~     This program is distributed in the hope that it will be useful,
+  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~     GNU General Public License for more details.
+  ~
+  ~     You should have received a copy of the GNU General Public License
+  ~     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+<!--
+  ~ 2014
+  ~
+  ~     This program is free software: you can redistribute it and/or modify
+  ~     it under the terms of the GNU General Public License as published by
+  ~     the Free Software Foundation, either version 3 of the License, or
+  ~     (at your option) any later version.
+  ~
+  ~     This program is distributed in the hope that it will be useful,
+  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~     GNU General Public License for more details.
+  ~
+  ~     You should have received a copy of the GNU General Public License
+  ~     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<AnchorPane id="AnchorPane" minHeight="480.0" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.aboutController">
+   <children>
+      <Button layoutX="564.0" layoutY="441.0" mnemonicParsing="false" onAction="#goToMain" text="%menu.bmain" />
+      <ImageView fitHeight="124.0" fitWidth="124.0" layoutX="258.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../res/icons/logo/logo-256x256.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="260.0" layoutY="171.0" text="CAPOS">
+         <font>
+            <Font size="35.0" />
+         </font>
+      </Label>
+      <Label layoutX="115.0" layoutY="214.0" text="Computer Automatization Point of Sale" textFill="#808080">
+         <font>
+            <Font name="System Italic" size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbuild" layoutX="115.0" layoutY="385.0" text="Build: v0.0.0" />
+      <Hyperlink fx:id="link" layoutX="115.0" layoutY="294.0" text="https://github.com/antoniotorres/CAPOS" />
+      <Label layoutX="292.0" layoutY="271.0" text="Jose Antonio Torres - Torres Software" />
+      <Label layoutX="115.0" layoutY="413.0" prefHeight="15.0" prefWidth="176.0" text="License: GNU GPLv3" />
+   </children>
+</AnchorPane>
