@@ -66,6 +66,9 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
+        PropCapos dprop = new PropCapos();
+        DbCapos database = new DbCapos();
+
         ScreensController mainContainer = new ScreensController();
         mainContainer.loadScreen(Main.screenMain, Main.screenMain_FXML);
         mainContainer.loadScreen(Main.screenLogin, Main.screenLogin_FXML);
@@ -84,8 +87,6 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.setResizable(false);
-        PropCapos dprop = new PropCapos();
-        DbCapos database = new DbCapos();
         primaryStage.setTitle("CAPOS - "+dprop.getStore_name());
         primaryStage.getIcons().add(new Image("/res/icons/logo/logo-64x64.png"));
     }
