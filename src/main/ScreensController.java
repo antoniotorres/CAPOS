@@ -61,7 +61,7 @@ public class ScreensController  extends StackPane {
     public boolean loadScreen(String name, String resource) {
         try {
             //Interantionalization
-            Locale locale = new Locale("es", "MX");
+            Locale locale = new Locale("en", "US");
             ResourceBundle bundle = ResourceBundle.getBundle("i18n.MyBundle", locale);
             //Loads FXML Screen
             FXMLLoader myLoader = new FXMLLoader(getClass().getResource(resource), bundle);

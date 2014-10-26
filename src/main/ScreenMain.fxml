@@ -27,7 +27,7 @@
             <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToReportes" text="%main.breports" GridPane.columnIndex="2" />
          </children>
       </GridPane>
-      <Button layoutX="564.0" layoutY="441.0" mnemonicParsing="false" onAction="#goToLogin" text="Logout" />
+      <Button layoutX="564.0" layoutY="441.0" mnemonicParsing="false" onAction="#goToLogin" text="%menu.blogout" />
       <Line endX="540.0" layoutX="101.0" layoutY="50.0" startX="-100.0" strokeMiterLimit="20.0" />
       <ImageView fx:id="imgLogoCom" fitHeight="50.0" fitWidth="128.0" layoutX="1.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="imgLogoCom1" fitHeight="50.0" fitWidth="50.0" layoutX="592.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
