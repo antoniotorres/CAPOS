@@ -29,6 +29,8 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import properties.PropCapos;
 
+import java.lang.reflect.Field;
+import java.nio.charset.Charset;
 public class Main extends Application {
 
 
@@ -50,6 +52,11 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+
+        System.setProperty("file.encoding","UTF-8");
+        Field charset = Charset.class.getDeclaredField("defaultCharset");
+        charset.setAccessible(true);
+        charset.set(null,null);
 
         ScreensController mainContainer = new ScreensController();
         mainContainer.loadScreen(Main.screenMain, Main.screenMain_FXML);

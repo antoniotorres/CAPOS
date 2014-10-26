@@ -22,9 +22,9 @@
           <RowConstraints minHeight="-Infinity" prefHeight="100.0" />
         </rowConstraints>
          <children>
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToCaja" text="Caja" />
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToInventario" text="Inventario" GridPane.columnIndex="1" />
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToReportes" text="Reportes" GridPane.columnIndex="2" />
+            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToCaja" text="%main.bsales" />
+            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToInventario" text="%main.bstocks" GridPane.columnIndex="1" />
+            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToReportes" text="%main.breports" GridPane.columnIndex="2" />
          </children>
       </GridPane>
       <Button layoutX="564.0" layoutY="441.0" mnemonicParsing="false" onAction="#goToLogin" text="Logout" />

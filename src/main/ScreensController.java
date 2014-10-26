@@ -20,7 +20,11 @@
 
 package main;
 
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -56,7 +60,11 @@ public class ScreensController  extends StackPane {
     //finally injects the screenPane to the controller.
     public boolean loadScreen(String name, String resource) {
         try {
-            FXMLLoader myLoader = new FXMLLoader(getClass().getResource(resource));
+            //Interantionalization
+            Locale locale = new Locale("es", "MX");
+            ResourceBundle bundle = ResourceBundle.getBundle("i18n.MyBundle", locale);
+            //Loads FXML Screen
+            FXMLLoader myLoader = new FXMLLoader(getClass().getResource(resource), bundle);
             Parent loadScreen = (Parent) myLoader.load();
             ControlledScreen myScreenControler = ((ControlledScreen) myLoader.getController());
             myScreenControler.setScreenParent(this);

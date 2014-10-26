@@ -8,6 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+<?scenebuilder-preview-i18n-resource i18n/MyBundle.properties?>
 
 <AnchorPane id="AnchorPane" minHeight="480.0" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.loginController">
    <children>
@@ -22,13 +23,13 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Usuario" />
+            <Label text="%login.lusername" />
             <TextField fx:id="username" GridPane.rowIndex="1" />
-            <Label text="Contrasena" GridPane.rowIndex="2" />
+            <Label text="%login.lpassword" GridPane.rowIndex="2" />
             <PasswordField fx:id="password" GridPane.rowIndex="3" />
          </children>
       </GridPane>
-      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="264.0" layoutY="240.0" mnemonicParsing="false" onAction="#loginButton" text="Iniciar Session" />
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="264.0" layoutY="240.0" mnemonicParsing="false" onAction="#loginButton" text="%login.blogin" />
       <Label fx:id="lError" layoutX="302.0" layoutY="295.0" textFill="RED" />
       <ImageView fx:id="imgLogo" fitHeight="150.0" fitWidth="128.0" layoutX="256.0" layoutY="300.0" pickOnBounds="true" preserveRatio="true">
          <image>
