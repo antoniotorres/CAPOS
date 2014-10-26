@@ -12,14 +12,14 @@
 <AnchorPane id="AnchorPane" minHeight="480.0" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.reportesController">
    <children>
       <DatePicker fx:id="dFecha" layoutX="417.0" layoutY="127.0" prefHeight="25.0" prefWidth="171.0" />
-      <Label layoutX="416.0" layoutY="178.0" text="Total de Ventas:" />
-      <Button layoutX="543.0" layoutY="441.0" mnemonicParsing="false" onAction="#actualizar" text="Actualizar" />
-      <Label layoutX="417.0" layoutY="233.0" text="Total de Dinero:" />
+      <Label layoutX="416.0" layoutY="178.0" text="%reports.lnumsells" />
+      <Button layoutX="543.0" layoutY="441.0" mnemonicParsing="false" onAction="#actualizar" text="%reports.bupdate" />
+      <Label layoutX="417.0" layoutY="233.0" text="%reports.lnummoney" />
       <TextField fx:id="lVenta" disable="true" editable="false" focusTraversable="false" layoutX="417.0" layoutY="202.0" />
       <TextField fx:id="lDinero" disable="true" editable="false" focusTraversable="false" layoutX="417.0" layoutY="250.0" />
       <TextField fx:id="lTax" disable="true" editable="false" focusTraversable="false" layoutX="417.0" layoutY="299.0" />
-      <Label layoutX="417.0" layoutY="282.0" text="Total de I.V.A:" />
-      <Label layoutX="416.0" layoutY="106.0" text="Fecha" />
+      <Label layoutX="417.0" layoutY="282.0" text="%reports.lnumtaxes" />
+      <Label layoutX="416.0" layoutY="106.0" text="%reports.ldate" />
        <GridPane hgap="10.0" layoutX="417.0" layoutY="14.0">
            <columnConstraints>
                <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="63.0" />
@@ -29,16 +29,16 @@
                <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" vgrow="SOMETIMES" />
            </rowConstraints>
            <children>
-               <Button mnemonicParsing="false" onAction="#goToLogin" text="Logout" GridPane.columnIndex="1" />
-               <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToMain" text="Main" />
+               <Button mnemonicParsing="false" onAction="#goToLogin" text="%menu.blogout" GridPane.columnIndex="1" />
+               <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToMain" text="%menu.bmain" />
            </children>
        </GridPane>
-      <LineChart fx:id="lChart" layoutX="14.0" layoutY="54.0" prefHeight="343.0" prefWidth="386.0" title="Ventas">
+      <LineChart fx:id="lChart" layoutX="14.0" layoutY="54.0" prefHeight="343.0" prefWidth="386.0" title="%reports.ttitle">
         <xAxis>
-          <NumberAxis label="Dia" side="BOTTOM" upperBound="31.0" fx:id="xAxis" />
+          <NumberAxis label="%reports.tx" side="BOTTOM" upperBound="31.0" fx:id="xAxis" />
         </xAxis>
         <yAxis>
-          <NumberAxis fx:id="yAxis" label="Dinero" side="LEFT" />
+          <NumberAxis fx:id="yAxis" label="%reports.ty" side="LEFT" />
         </yAxis>
       </LineChart>
    </children>
