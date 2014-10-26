@@ -32,6 +32,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
+import properties.PropCapos;
 
 public class ScreensController  extends StackPane {
     //Holds the screens to be displayed
@@ -57,7 +58,19 @@ public class ScreensController  extends StackPane {
     public boolean loadScreen(String name, String resource) {
         try {
             //Interantionalization
-            Locale locale = new Locale("en", "US");
+            PropCapos prop = new PropCapos();
+            String lca = prop.getLanguage();
+            //Separates language property Exmple en_Us into en and US
+            String left = "";
+            String right="";
+            int p = lca.indexOf('_');
+            if (p >= 0) {
+                left = lca.substring(0, p);
+                right = lca.substring(p + 1);
+            } else {
+                // lca does not contain '-'
+            }
+            Locale locale = new Locale(left, right);
             ResourceBundle bundle = ResourceBundle.getBundle("i18n.MyBundle", locale);
             //Loads FXML Screen
             FXMLLoader myLoader = new FXMLLoader(getClass().getResource(resource), bundle);

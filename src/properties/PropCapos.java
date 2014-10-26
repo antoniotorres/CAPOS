@@ -32,6 +32,7 @@ public class PropCapos {
     private String database_name;
     private String database_url;
     private String ticket_message;
+    private String language;
     private Float tax;
 
     public PropCapos() {
@@ -47,7 +48,7 @@ public class PropCapos {
 
         OutputStream output = null;
         File caposProp = new File(propertiesPath+"/capos.properties");
-        System.out.println("Cargando Archivo de Propiedades: "+caposProp.getPath());
+        //System.out.println("Cargando Archivo de Propiedades: "+caposProp.getPath());
         if(!caposProp.exists()) {
             try {
                 System.out.println("capos.properties doesn't exists!");
@@ -57,7 +58,7 @@ public class PropCapos {
 
                 // set the properties value
                 prop.setProperty("database_url", "localhost");
-                prop.setProperty("database_buser", "capos");
+                prop.setProperty("database_user", "capos");
                 prop.setProperty("database_password", "capos");
                 prop.setProperty("database_name", "capos");
                 prop.setProperty("database_type", "sqlite");
@@ -67,6 +68,7 @@ public class PropCapos {
                 prop.setProperty("store_phone", "12341234");
                 prop.setProperty("ticket_message", "Thank you for shopping in our store.");
                 prop.setProperty("tax", "0.00");
+                prop.setProperty("language", "en_US");
 
                 // save properties to project root folder
                 prop.store(output, null);
@@ -106,12 +108,49 @@ public class PropCapos {
         store_address = prop.getProperty("store_address");
         store_phone = prop.getProperty("store_phone");
         ticket_message = prop.getProperty("ticket_message");
+        language = prop.getProperty("language");
         try {
             tax = Float.parseFloat(prop.getProperty("tax"));
         } catch (NumberFormatException e){
             System.out.println("Error");
         }
     }
+    public void setData(){
+        File jarPath=new File(PropCapos.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+        String propertiesPath=jarPath.getParentFile().getAbsolutePath();
+        Properties prop = new Properties();
+
+        OutputStream output = null;
+        File caposProp = new File(propertiesPath+"/capos.properties");
+        try {
+            output = new FileOutputStream(caposProp);
+            prop.setProperty("store_name", store_name);
+            prop.setProperty("store_logo", store_logo);
+            prop.setProperty("database_type", database_type);
+            prop.setProperty("database_name", database_name);
+            prop.setProperty("database_user", database_user);
+            prop.setProperty("database_url", database_url);
+            prop.setProperty("database_password", database_password);
+            prop.setProperty("store_address", store_address);
+            prop.setProperty("store_phone", store_phone);
+            prop.setProperty("ticket_message", ticket_message);
+            prop.setProperty("tax", tax.toString());
+            prop.setProperty("language", language);
+            prop.store(output, null);
+        } catch (IOException io) {
+            io.printStackTrace();
+        } finally {
+            if (output != null) {
+                try {
+                    output.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+    }
+
     public String getStore_logo(){
         return store_logo;
     }
@@ -143,7 +182,11 @@ public class PropCapos {
     }
 
     public String getStore_phone() {
+
         return store_phone;
+    }
+    public String getLanguage() {
+        return language;
     }
 
     public String getTicket_message() {
@@ -152,5 +195,9 @@ public class PropCapos {
 
     public Float getTax() {
         return tax;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
     }
 }

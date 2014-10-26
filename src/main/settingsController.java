@@ -56,6 +56,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
+import properties.PropCapos;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -91,6 +93,19 @@ public class settingsController extends ControlledScreen implements Initializabl
     }
     @FXML
     private void update(ActionEvent event) {
+        PropCapos prop = new PropCapos();
+        //System.out.println(cbLanguage.getValue());
+        String a = cbLanguage.getValue().toString();
+        //Changes ChoiceBox value to abreviation ex_MX
+        String b = "en_US";
+        if(a.equals("English (US)"))
+            b="en_US";
+        else if(a.equals("Espanol (Mexico)"))
+            b="es_MX";
+
+        prop.setLanguage(b);
+        prop.setData();
+        System.out.println(prop.getLanguage());
 
     }
 }
