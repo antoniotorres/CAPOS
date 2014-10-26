@@ -43,8 +43,6 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import properties.PropCapos;
 
-import java.lang.reflect.Field;
-import java.nio.charset.Charset;
 public class Main extends Application {
 
 
@@ -60,17 +58,11 @@ public class Main extends Application {
     public static String getScreenReportes_FXML = "ScreenReportes.fxml";
     public static String screenInventario = "inventario";
     public static String getScreenInventario_FXML = "ScreenInventario.fxml";
-
-    PropCapos dprop = new PropCapos();
-    DbCapos database = new DbCapos();
+    public static String screenSettings = "settings";
+    public static String getScreenSettings_FXML = "ScreenSettings.fxml";
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-
-        System.setProperty("file.encoding","UTF-8");
-        Field charset = Charset.class.getDeclaredField("defaultCharset");
-        charset.setAccessible(true);
-        charset.set(null,null);
 
         ScreensController mainContainer = new ScreensController();
         mainContainer.loadScreen(Main.screenMain, Main.screenMain_FXML);
@@ -79,6 +71,7 @@ public class Main extends Application {
         mainContainer.loadScreen(Main.screenImprimir, Main.getScreenImprimir_FXML);
         mainContainer.loadScreen(Main.screenReportes, Main.getScreenReportes_FXML);
         mainContainer.loadScreen(Main.screenInventario, Main.getScreenInventario_FXML);
+        mainContainer.loadScreen(Main.screenSettings, Main.getScreenSettings_FXML);
 
         mainContainer.setScreen(Main.screenLogin);
 
@@ -88,6 +81,8 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.setResizable(false);
+        PropCapos dprop = new PropCapos();
+        DbCapos database = new DbCapos();
         primaryStage.setTitle("CAPOS - "+dprop.getStore_name());
         primaryStage.getIcons().add(new Image("/res/icons/logo/logo-64x64.png"));
     }
