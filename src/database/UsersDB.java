@@ -35,17 +35,17 @@ public class UsersDB {
     private static String dbFile = propertiesPath+"/pos.db";
 
     public static void createDefaultUser(){
-        if(checkUser("admin")!=true){
-            insertUser("admin", "admin");
+        if(!checkUser("admin")){
+            insertUser("admin", "admin", "", "", 3);
         }
     }
-    private static void insertUser(String u, String p){
+    private static void insertUser(String u, String p, String fn, String ln, int level){
         try{
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
             c.setAutoCommit(false);
             stmt = c.createStatement();
-            String sql = "INSERT INTO users (username, password) VALUES ('"+u+"','"+hashPassword(p)+"');";
+            String sql = "INSERT INTO users (username, password, first_name, last_name, level) VALUES ('"+u+"','"+hashPassword(p)+"', '"+fn+"', '"+ln+"', '"+level+"');";
             stmt.executeUpdate(sql);
             stmt.close();
             c.commit();
@@ -111,9 +111,10 @@ public class UsersDB {
             digest = sb.toString();
 
         } catch (UnsupportedEncodingException ex) {
+            System.out.println("Error Hash");
 
         } catch (NoSuchAlgorithmException ex) {
-
+            System.out.println("Error Hash");
         }
         return digest;
     }

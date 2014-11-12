@@ -36,7 +36,7 @@ public class CreateDB {
     }
 
     public static void create(){
-        if(lookFile()!=true) {
+        if(!lookFile()) {
             //Creates the tables necessary for the program
             System.out.println("pos.db doesn't exist. Creating new file.");
             newTable("productos", "(ID INTEGER PRIMARY KEY     AUTOINCREMENT, \"nombre\" TEXT NOT NULL,\n" +
@@ -44,7 +44,15 @@ public class CreateDB {
                     "    \"precio\" REAL NOT NULL,\n" +
                     "    \"cantidad\" INTEGER NOT NULL)");
 
-            newTable("users", "(ID INTEGER PRIMARY KEY     AUTOINCREMENT, username           TEXT    NOT NULL, password            TEXT     NOT NULL)");
+            newTable("users", "(ID INTEGER PRIMARY KEY     AUTOINCREMENT," +
+                    " username           TEXT    NOT NULL," +
+                    " password            TEXT     NOT NULL," +
+                    " first_name            TEXT     NOT NULL," +
+                    " last_name            TEXT     NOT NULL," +
+                    " level            INTEGER     NOT NULL," +
+                    " created_on            TEXT     NOT NULL," +
+                    " updated_on            TEXT     NOT NULL)");
+
 
             newTable("ventas", "( \"sale_id\" INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                     "    \"sale_time\" TEXT NOT NULL,\n" +
