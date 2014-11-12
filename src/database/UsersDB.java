@@ -21,10 +21,7 @@ import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 
 public class UsersDB {
     //Intilize the variables needed for the class.
@@ -41,11 +38,13 @@ public class UsersDB {
     }
     private static void insertUser(String u, String p, String fn, String ln, int level){
         try{
+            java.util.Date date= new java.util.Date();
+            String time = (new Timestamp(date.getTime()).toString());
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
             c.setAutoCommit(false);
             stmt = c.createStatement();
-            String sql = "INSERT INTO users (username, password, first_name, last_name, level) VALUES ('"+u+"','"+hashPassword(p)+"', '"+fn+"', '"+ln+"', '"+level+"');";
+            String sql = "INSERT INTO users (username, password, first_name, last_name, level, created_on, updated_on) VALUES ('"+u+"','"+hashPassword(p)+"', '"+fn+"', '"+ln+"', '"+level+"', '"+time+"', '"+time+"');";
             stmt.executeUpdate(sql);
             stmt.close();
             c.commit();
@@ -113,8 +112,6 @@ public class UsersDB {
         } catch (UnsupportedEncodingException ex) {
             System.out.println("Error Hash");
 
-        } catch (NoSuchAlgorithmException ex) {
-            System.out.println("Error Hash");
         }
         return digest;
     }

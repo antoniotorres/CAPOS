@@ -39,27 +39,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
 import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URL;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Properties;
 import java.util.ResourceBundle;
 import database.DbCapos;
-import javafx.print.PrinterJob;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.shape.Circle;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
-import javafx.stage.Stage;
 import properties.PropCapos;
 
 public class loginController extends ControlledScreen implements Initializable {
@@ -70,7 +56,6 @@ public class loginController extends ControlledScreen implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
         //Esta parte del codigo muestra el logo de la empresa
         PropCapos prop = new PropCapos();
         File jarPath=new File(DbCapos.class.getProtectionDomain().getCodeSource().getLocation().getPath());
