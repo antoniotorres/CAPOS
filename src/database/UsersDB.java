@@ -112,6 +112,8 @@ public class UsersDB {
         } catch (UnsupportedEncodingException ex) {
             System.out.println("Error Hash");
 
+        } catch (NoSuchAlgorithmException ex) {
+            System.out.println("Error Hash");
         }
         return digest;
     }
