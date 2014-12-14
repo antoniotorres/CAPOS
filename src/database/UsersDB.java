@@ -109,10 +109,9 @@ public class UsersDB {
 
             digest = sb.toString();
 
-        } catch (UnsupportedEncodingException ex) {
+        }  catch (NoSuchAlgorithmException ex) {
             System.out.println("Error Hash");
-
-        } catch (NoSuchAlgorithmException ex) {
+        }catch (UnsupportedEncodingException ex) {
             System.out.println("Error Hash");
         }
         return digest;

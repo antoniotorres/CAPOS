@@ -45,6 +45,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import properties.PropCapos;
+import utilities.reports;
 
 public class mainController extends ControlledScreen implements Initializable {
 
@@ -73,32 +74,37 @@ public class mainController extends ControlledScreen implements Initializable {
     @FXML
     private void goToCaja(ActionEvent event){
         myController.setScreen(Main.screenCaja);
-        System.out.println("Go to Caja Screen");
+        reports.log("Go to Caja Screen");
     }
 
     @FXML
     private void goToReportes(ActionEvent event){
         myController.setScreen(Main.screenReportes);
-        System.out.println("Go to Reportes Screen");
+        reports.log("Go to Reports Screen");
     }
     @FXML
     private void goToInventario(ActionEvent event){
         myController.setScreen(Main.screenInventario);
-        System.out.println("Go to Inv Screen");
+        reports.log("Go to Inventory Screen");
     }
     @FXML
     private void goToSettings(ActionEvent event){
         myController.setScreen(Main.screenSettings);
-        System.out.println("Go to Settings Screen");
+        reports.log("Go to Settings Screen");
+    }
+    @FXML
+    private void goToUsers(ActionEvent event){
+        myController.setScreen(Main.screenUsers);
+        reports.log("Go to Users Screen");
     }
     @FXML
     private void goToLogin(ActionEvent event){
         myController.setScreen(Main.screenLogin);
-        System.out.println("Go to Login Screen");
+        reports.log("Go to Login Screen");
     }
     @FXML
     private void goToAbout(ActionEvent event){
         myController.setScreen(Main.screenAbout);
-        System.out.println("Go to Login Screen");
+        reports.log("Go to About Screen");
     }
 }
