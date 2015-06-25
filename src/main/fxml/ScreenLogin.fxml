@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.image.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?scenebuilder-preview-i18n-resource i18n/MyBundle.properties?>
 
 <!--
@@ -50,7 +45,7 @@
       <Label fx:id="lError" layoutX="302.0" layoutY="295.0" textFill="RED" />
       <ImageView fx:id="imgLogo" fitHeight="150.0" fitWidth="128.0" layoutX="256.0" layoutY="300.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../res/inicio.png" />
+            <Image url="@../../res/inicio.png" />
          </image></ImageView>
       <ImageView fx:id="imgLogoCom" fitHeight="50.0" fitWidth="128.0" layoutX="256.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" />
    </children>

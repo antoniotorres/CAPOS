@@ -1,38 +1,3 @@
-/*
- * 2014
- *
- *     This program is free software: you can redistribute it and/or modify
- *     it under the terms of the GNU General Public License as published by
- *     the Free Software Foundation, either version 3 of the License, or
- *     (at your option) any later version.
- *
- *     This program is distributed in the hope that it will be useful,
- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
- *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *     GNU General Public License for more details.
- *
- *     You should have received a copy of the GNU General Public License
- *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-/*
- * 2014
- *
- *     This program is free software: you can redistribute it and/or modify
- *     it under the terms of the GNU General Public License as published by
- *     the Free Software Foundation, either version 3 of the License, or
- *     (at your option) any later version.
- *
- *     This program is distributed in the hope that it will be useful,
- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
- *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *     GNU General Public License for more details.
- *
- *     You should have received a copy of the GNU General Public License
- *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-
 package main;
 
 import database.DbCapos;
@@ -47,23 +12,23 @@ public class Main extends Application {
 
 
     public static String screenMain = "main";
-    public static String screenMain_FXML = "ScreenMain.fxml";
+    public static String screenMain_FXML = "fxml/ScreenMain.fxml";
     public static String screenLogin = "login";
-    public static String screenLogin_FXML = "ScreenLogin.fxml";
+    public static String screenLogin_FXML = "fxml/ScreenLogin.fxml";
     public static String screenCaja = "caja";
-    public static String screenCaja_FXML = "ScreenCaja.fxml";
+    public static String screenCaja_FXML = "fxml/ScreenCaja.fxml";
     public static String screenImprimir = "imprimir";
-    public static String getScreenImprimir_FXML = "ScreenImprimir.fxml";
+    public static String getScreenImprimir_FXML = "fxml/ScreenImprimir.fxml";
     public static String screenReportes = "reportes";
-    public static String getScreenReportes_FXML = "ScreenReportes.fxml";
+    public static String getScreenReportes_FXML = "fxml/ScreenReportes.fxml";
     public static String screenInventario = "inventario";
-    public static String getScreenInventario_FXML = "ScreenInventario.fxml";
+    public static String getScreenInventario_FXML = "fxml/ScreenInventario.fxml";
     public static String screenSettings = "settings";
-    public static String getScreenSettings_FXML = "ScreenSettings.fxml";
+    public static String getScreenSettings_FXML = "fxml/ScreenSettings.fxml";
     public static String screenUsers = "users";
-    public static String getScreenUsers_FXML = "ScreenUsers.fxml";
+    public static String getScreenUsers_FXML = "fxml/ScreenUsers.fxml";
     public static String screenAbout = "about";
-    public static String getScreenAbout_FXML = "ScreenAbout.fxml";
+    public static String getScreenAbout_FXML = "fxml/ScreenAbout.fxml";
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -86,7 +51,7 @@ public class Main extends Application {
 
         Group root = new Group();
         root.getChildren().addAll(mainContainer);
-        Scene scene = new Scene(root, 640, 480);
+        Scene scene = new Scene(root, 1280, 720);
         primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.setResizable(false);

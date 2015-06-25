@@ -43,7 +43,7 @@
       <Button layoutX="564.0" layoutY="441.0" mnemonicParsing="false" onAction="#goToMain" text="%menu.bmain" />
       <ImageView fitHeight="124.0" fitWidth="124.0" layoutX="258.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../res/icons/logo/logo-256x256.png" />
+            <Image url="@../../res/icons/logo/logo-256x256.png" />
          </image>
       </ImageView>
       <Label layoutX="260.0" layoutY="171.0" text="CAPOS">
