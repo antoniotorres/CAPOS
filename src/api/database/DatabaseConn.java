@@ -20,16 +20,16 @@ import java.sql.Connection;
 import java.sql.Statement;
 
 public class DatabaseConn {
-    private String databasePath = null;
-    private String databaseName = null;
-    private Connection c = null;
-    private Statement stmt = null;
+    protected String databasePath = null;
+    protected String databaseName = null;
+    protected Connection c = null;
+    protected Statement stmt = null;
 
-    private void setDefaultDatabasePath(){
+    protected void setDefaultDatabasePath(){
         File jarPath=new File(DatabaseConn.class.getProtectionDomain().getCodeSource().getLocation().getPath());
         databasePath=jarPath.getParentFile().getAbsolutePath();
     }
-    private void setDefaultDatabaseName(){
+    protected void setDefaultDatabaseName(){
         databasePath="pos.db";
     }
 }

@@ -16,6 +16,14 @@
 package api.database;
 public class Result {
 
+    public Result(int status){
+        returnStatus = status;
+    }
+    public Result(String[] value){
+        returnStatus = 200;
+        returnValues = value;
+    }
+
     private int returnStatus;
     private int returnInt;
     private String[] returnValues;
