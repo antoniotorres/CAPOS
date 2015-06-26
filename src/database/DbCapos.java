@@ -91,7 +91,7 @@ public class DbCapos {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:"+propertiesPath+"/pos.db");
             c.setAutoCommit(false);
-            System.out.println("Opened database successfully");
+            System.out.println("Opened Database successfully");
 
             stmt = c.createStatement();
             ResultSet rs = stmt.executeQuery( "SELECT * FROM PRODUCTOS WHERE CODIGO='"+codigo+"';" );
@@ -119,7 +119,7 @@ public class DbCapos {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:"+propertiesPath+"/pos.db");
             c.setAutoCommit(false);
-            System.out.println("Opened database successfully");
+            System.out.println("Opened Database successfully");
 
             stmt = c.createStatement();
             String sql = "INSERT INTO PRODUCTOS (nombre,codigo,precio,cantidad) " +
@@ -145,7 +145,7 @@ public class DbCapos {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:"+propertiesPath+"/pos.db");
             c.setAutoCommit(false);
-            System.out.println("Opened database successfully");
+            System.out.println("Opened Database successfully");
 
             stmt = c.createStatement();
             String sql = "DELETE FROM PRODUCTOS WHERE codigo='"+codigo+"';";
@@ -170,7 +170,7 @@ public class DbCapos {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:"+propertiesPath+"/pos.db");
             c.setAutoCommit(false);
-            System.out.println("Opened database successfully");
+            System.out.println("Opened Database successfully");
 
             stmt = c.createStatement();
             String sql = "INSERT INTO VENTAS (sale_time,payment_type,payment_amount) " +
@@ -206,7 +206,7 @@ public class DbCapos {
                 Class.forName("org.sqlite.JDBC");
                 c = DriverManager.getConnection("jdbc:sqlite:" + propertiesPath + "/pos.db");
                 c.setAutoCommit(false);
-                System.out.println("Opened database successfully");
+                System.out.println("Opened Database successfully");
 
                 int var = invNow[x] - inventario[x];
                 stmt = c.createStatement();
@@ -260,7 +260,7 @@ public class DbCapos {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:" + propertiesPath + "/pos.db");
             c.setAutoCommit(false);
-            System.out.println("Opened database successfully");
+            System.out.println("Opened Database successfully");
 
             stmt = c.createStatement();
             String sql = "UPDATE PRODUCTOS set NOMBRE='"+nombre+"', PRECIO='"+precio+"', CANTIDAD='"+cant+"' where CODIGO='"+codigo+"';";
@@ -284,7 +284,7 @@ public class DbCapos {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:"+propertiesPath+"/pos.db");
             c.setAutoCommit(false);
-            System.out.println("Opened database successfully");
+            System.out.println("Opened Database successfully");
 
             stmt = c.createStatement();
             LocalDate stop = date.plusDays(1);
