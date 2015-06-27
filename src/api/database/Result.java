@@ -37,4 +37,7 @@ public class Result {
     public String[] getReturnValues() {
         return returnValues;
     }
+    public String toString(){
+        return "Return Status: "+getReturnStatus();
+    }
 }

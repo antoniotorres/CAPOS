@@ -23,7 +23,7 @@ public class UserDatabase extends DatabaseConn implements Database {
     }
 
     @Override
-    public Result select(String[] arguments) {
+    public Result select(String[] conditions, String[] arguments) {
         return null;
     }
 

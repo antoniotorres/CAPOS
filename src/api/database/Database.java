@@ -18,7 +18,7 @@ public interface Database {
 
     Result create(String[] arguments);
 
-    Result select(String[] arguments);
+    Result select(String[] conditions, String[] arguments);
 
     Result modify(String[] arguments);
 

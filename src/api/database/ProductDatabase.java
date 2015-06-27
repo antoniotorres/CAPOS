@@ -47,7 +47,7 @@ public class ProductDatabase extends DatabaseConn implements Database {
 
     //In this method there's only one parameter and it gives the barcode of the product
     @Override
-    public Result select(String[] arguments) {
+    public Result select(String[] conditions, String[] arguments) {
         //Check for parameter errors
         if(arguments.length>1){
             return new Result(102);

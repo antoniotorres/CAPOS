@@ -1,5 +1,8 @@
 package main;
 
+import api.database.Database;
+import api.database.ProductDatabase;
+import api.database.Result;
 import database.DbCapos;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -55,8 +58,11 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.setResizable(false);
-        primaryStage.setTitle("CAPOS - "+dprop.getStore_name());
+        primaryStage.setTitle("CAPOS - " + dprop.getStore_name());
         primaryStage.getIcons().add(new Image("/res/icons/logo/logo-64x64.png"));
+        ProductDatabase productdb = new ProductDatabase();
+        Result temp = productdb.select(new String[]{"1"});
+        System.out.println(temp.toString());
     }
 
 
