@@ -30,6 +30,6 @@ public class DatabaseConn {
         databasePath=jarPath.getParentFile().getAbsolutePath();
     }
     protected void setDefaultDatabaseName(){
-        databasePath="pos.db";
+        databaseName="pos.db";
     }
 }

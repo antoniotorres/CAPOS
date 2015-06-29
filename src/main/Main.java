@@ -60,9 +60,6 @@ public class Main extends Application {
         primaryStage.setResizable(false);
         primaryStage.setTitle("CAPOS - " + dprop.getStore_name());
         primaryStage.getIcons().add(new Image("/res/icons/logo/logo-64x64.png"));
-        ProductDatabase productdb = new ProductDatabase();
-        Result temp = productdb.select(new String[]{"barcode"},new String[]{"1"});
-        System.out.println(temp.toString());
     }
 
 

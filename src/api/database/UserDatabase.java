@@ -18,7 +18,7 @@ package api.database;
 public class UserDatabase extends DatabaseConn implements Database {
 
     @Override
-    public Result create(String[] arguments) {
+    public Result create(String[] conditions, String[] arguments) {
         return null;
     }
 
@@ -28,12 +28,12 @@ public class UserDatabase extends DatabaseConn implements Database {
     }
 
     @Override
-    public Result modify(String[] arguments) {
+    public Result modify(String[] conditions, String[] arguments) {
         return null;
     }
 
     @Override
-    public Result delete(String[] arguments) {
+    public Result delete(String[] conditions, String[] arguments) {
         return null;
     }
 }

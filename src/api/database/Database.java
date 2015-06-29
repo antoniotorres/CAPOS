@@ -16,12 +16,12 @@
 package api.database;
 public interface Database {
 
-    Result create(String[] arguments);
+    Result create(String[] conditions, String[] arguments);
 
     Result select(String[] conditions, String[] arguments);
 
-    Result modify(String[] arguments);
+    Result modify(String[] conditions, String[] arguments);
 
-    Result delete(String[] arguments);
+    Result delete(String[] conditions, String[] arguments);
 
 }
