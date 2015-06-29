@@ -17,6 +17,7 @@ package api.database;
 
 import java.io.File;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.Statement;
 
 public class DatabaseConn {
@@ -24,6 +25,7 @@ public class DatabaseConn {
     protected String databaseName = null;
     protected Connection c = null;
     protected Statement stmt = null;
+    protected PreparedStatement pstmt = null;
 
     protected void setDefaultDatabasePath(){
         File jarPath=new File(DatabaseConn.class.getProtectionDomain().getCodeSource().getLocation().getPath());

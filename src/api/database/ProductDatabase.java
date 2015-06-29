@@ -32,6 +32,7 @@ package api.database;
 
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class ProductDatabase extends DatabaseConn implements Database {
 
@@ -41,7 +42,55 @@ public class ProductDatabase extends DatabaseConn implements Database {
     }
     @Override
     public Result create(String[] conditions, String[] arguments) {
-        return null;
+        //Check for parameter errors
+        if(arguments.length>1){
+            return new Result(102);
+        }else if(conditions.length!=arguments.length){
+            return new Result(103);
+        }else {
+            int product_id = -1;
+            //Encapsulate in a try/catch to prevent database errors
+            try{
+                //This part transforms the parameters into a query that the database can handle
+                String toSend="INSERT INTO PRODUCTS (";
+                for(int i=0; i<conditions.length; i++){
+                    toSend=toSend+conditions[i];
+                    //Adds a "," in each for and doesn't in the last loop
+                    if(i!=(conditions.length-1))
+                        toSend=toSend+", ";
+                }
+                toSend=toSend+") VALUES (";
+                for(int i=0; i<arguments.length; i++){
+                    toSend=toSend+arguments[i];
+                    //Adds a "," in each for and doesn't in the last loop
+                    if(i!=(arguments.length-1))
+                        toSend=toSend+", ";
+                }
+                toSend=toSend+")";
+
+
+                //This part of the code makes the DATABASE CONNECTION
+                Class.forName("org.sqlite.JDBC");
+                c = DriverManager.getConnection("jdbc:sqlite:" + databasePath +"/"+ databaseName);
+                c.setAutoCommit(false);
+
+                //This part of the code makes the QUERY
+                //This stament will look inside PRODUCTS TABLE
+                pstmt = c.prepareStatement(toSend, Statement.RETURN_GENERATED_KEYS);
+                pstmt.executeUpdate();
+                ResultSet keys = pstmt.getGeneratedKeys();
+                keys.next();
+                product_id = keys.getInt(1);
+                keys.close();
+                c.commit();
+                stmt.close();
+                c.close();
+            } catch ( Exception e ) {
+                System.err.println(e.getClass().getName() + ": " + e.getMessage());
+                return new Result(100);
+            }
+            return new Result(200);
+        }
     }
 
 
