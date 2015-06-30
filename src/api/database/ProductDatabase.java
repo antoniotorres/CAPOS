@@ -49,18 +49,19 @@ public class ProductDatabase extends DatabaseConn implements Database {
             return new Result(103);
         }else {
             int product_id = -1;
+            int tax_index = -1;
             //Encapsulate in a try/catch to prevent database errors
             try{
                 //This part transforms the parameters into a query that the database can handle
                 String toSend="INSERT INTO PRODUCTS (";
-                for(int i=0; i<conditions.length; i++){
+                for(int i=0; (i<conditions.length && i<5); i++){
                     toSend=toSend+conditions[i];
                     //Adds a "," in each for and doesn't in the last loop
                     if(i!=(conditions.length-1))
                         toSend=toSend+", ";
                 }
                 toSend=toSend+") VALUES (";
-                for(int i=0; i<arguments.length; i++){
+                for(int i=0; (i<arguments.length && i<5); i++){
                     toSend=toSend+arguments[i];
                     //Adds a "," in each for and doesn't in the last loop
                     if(i!=(arguments.length-1))
@@ -83,7 +84,15 @@ public class ProductDatabase extends DatabaseConn implements Database {
                 product_id = keys.getInt(1);
                 keys.close();
                 c.commit();
-                stmt.close();
+                pstmt.close();
+
+
+                stmt = c.createStatement();
+                toSend="INSERT INTO PRODUCTS_TAXES (product_id, percent) VALUES ("+product_id+","+arguments[5];
+                stmt.addBatch(toSend);
+                toSend="INSERT INTO PRODUCTS_QUANTITES (product_id, quantity) VALUES ("+product_id+","+arguments[6];
+                stmt.addBatch(toSend);
+
                 c.close();
             } catch ( Exception e ) {
                 System.err.println(e.getClass().getName() + ": " + e.getMessage());
